@@ -1,13 +1,43 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useCallback } from "react";
+import SplashScreen from "@/components/SplashScreen";
+import ParticleBackground from "@/components/ParticleBackground";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/sections/HeroSection";
+import AboutSection from "@/sections/AboutSection";
+import SkillsSection from "@/sections/SkillsSection";
+import ProjectsSection from "@/sections/ProjectsSection";
+import ExperienceSection from "@/sections/ExperienceSection";
+import EducationSection from "@/sections/EducationSection";
+import CertificationsSection from "@/sections/CertificationsSection";
+import ContactSection from "@/sections/ContactSection";
+import Footer from "@/components/Footer";
 
 const Index = () => {
+  const [splashDone, setSplashDone] = useState(false);
+
+  const handleSplashComplete = useCallback(() => {
+    setSplashDone(true);
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <>
+      {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
+      <ParticleBackground />
+      {splashDone && (
+        <div className="relative z-10">
+          <Navbar />
+          <HeroSection />
+          <AboutSection />
+          <SkillsSection />
+          <ProjectsSection />
+          <ExperienceSection />
+          <EducationSection />
+          <CertificationsSection />
+          <ContactSection />
+          <Footer />
+        </div>
+      )}
+    </>
   );
 };
 

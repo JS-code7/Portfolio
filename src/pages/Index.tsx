@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import SplashScreen from "@/components/SplashScreen";
 import ParticleBackground from "@/components/ParticleBackground";
 import Navbar from "@/components/Navbar";
+import ScrollProgress from "@/components/ScrollProgress";
 import HeroSection from "@/sections/HeroSection";
 import AboutSection from "@/sections/AboutSection";
 import SkillsSection from "@/sections/SkillsSection";
@@ -26,6 +27,7 @@ const Index = () => {
       {splashDone && (
         <div className="relative z-10">
           <Navbar />
+          <ScrollProgress />
           <HeroSection />
           <AboutSection />
           <SkillsSection />

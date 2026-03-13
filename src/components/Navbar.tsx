@@ -1,18 +1,21 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Certifications", href: "#certifications" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Projects", href: "/projects" },
+  { label: "Skills Galaxy", href: "/skills-galaxy" },
+  { label: "Experience", href: "/experience" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <motion.nav
@@ -22,20 +25,31 @@ const Navbar = () => {
       className="fixed top-0 left-0 right-0 z-40 glass-strong"
     >
       <div className="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <a href="#" className="text-xl font-display font-bold text-gradient-cyan">
+        <Link to="/" className="text-xl font-display font-bold text-gradient-cyan">
           JS
-        </a>
+        </Link>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-1">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.label}
-              href={item.href}
-              className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+              to={item.href}
+              className={`relative text-sm px-3 py-1.5 rounded-lg transition-colors duration-200 ${
+                location.pathname === item.href
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-primary"
+              }`}
             >
               {item.label}
-            </a>
+              {location.pathname === item.href && (
+                <motion.div
+                  layoutId="nav-indicator"
+                  className="absolute inset-0 bg-primary/10 rounded-lg -z-10"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
+            </Link>
           ))}
         </div>
 
@@ -57,16 +71,20 @@ const Navbar = () => {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden glass-strong border-t border-border overflow-hidden"
           >
-            <div className="container mx-auto px-4 py-4 flex flex-col gap-3">
+            <div className="container mx-auto px-4 py-4 flex flex-col gap-1">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.label}
-                  href={item.href}
+                  to={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors py-2"
+                  className={`text-sm py-2.5 px-3 rounded-lg transition-colors ${
+                    location.pathname === item.href
+                      ? "text-primary bg-primary/10"
+                      : "text-muted-foreground hover:text-primary"
+                  }`}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </div>
           </motion.div>

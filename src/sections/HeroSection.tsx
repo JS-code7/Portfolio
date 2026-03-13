@@ -1,10 +1,13 @@
 import { motion } from "framer-motion";
 import { ArrowDown, FolderOpen, Briefcase, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import FloatingIcons from "@/components/FloatingIcons";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 pt-16">
+    <section className="relative min-h-screen flex items-center justify-center px-4 pt-16 overflow-hidden">
+      <FloatingIcons />
       <div className="container mx-auto text-center z-10 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -32,7 +35,7 @@ const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="flex flex-wrap items-center justify-center gap-2 md:gap-3 text-xs md:text-sm text-muted-foreground mb-6"
         >
-          {["Cybersecurity", "Robotics", "Web Development", "Electronics"].map((item, i) => (
+          {["Cybersecurity", "Robotics", "Web Development", "Electronics", "AI"].map((item, i) => (
             <span key={item} className="flex items-center gap-2">
               {i > 0 && <span className="w-1 h-1 rounded-full bg-primary/50" />}
               {item}
@@ -46,8 +49,8 @@ const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Aspiring developer exploring cybersecurity, AI, robotics, and intelligent systems.
-          Passionate about building secure, innovative technologies that solve real-world problems.
+          Diving into the tech cosmos — Powered by DSA, Code &amp; Innovation.
+          Connecting circuits, creativity &amp; curiosity through real-world impact.
         </motion.p>
 
         <motion.div
@@ -56,21 +59,23 @@ const HeroSection = () => {
           transition={{ duration: 0.6, delay: 1 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
         >
-          <Button
-            size="lg"
-            className="bg-primary text-primary-foreground hover:bg-primary/90 font-display gap-2 px-6"
-            onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-          >
-            <FolderOpen size={16} /> View Projects
-          </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="border-primary/30 text-foreground hover:bg-primary/10 font-display gap-2 px-6"
-            onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
-          >
-            <Briefcase size={16} /> Explore Experience
-          </Button>
+          <Link to="/projects">
+            <Button
+              size="lg"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 font-display gap-2 px-6"
+            >
+              <FolderOpen size={16} /> View Projects
+            </Button>
+          </Link>
+          <Link to="/experience">
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-primary/30 text-foreground hover:bg-primary/10 font-display gap-2 px-6"
+            >
+              <Briefcase size={16} /> Explore Experience
+            </Button>
+          </Link>
           <Button
             variant="ghost"
             size="lg"

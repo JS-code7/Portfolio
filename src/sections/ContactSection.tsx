@@ -1,28 +1,37 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Loader2, CheckCircle, Mail, Linkedin } from "lucide-react";
+import { Send, Loader2, CheckCircle, Mail, Linkedin, ArrowRight } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import GlassCard from "@/components/GlassCard";
+import ScrollReveal from "@/components/ScrollReveal";
+import MagneticButton from "@/components/MagneticButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { api } from "@/lib/api";
 
 const ContactSection = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) return;
     setLoading(true);
-    // Placeholder for backend integration
-    setTimeout(() => {
-      setLoading(false);
+    setError("");
+
+    try {
+      await api.submitContact(form);
       setSuccess(true);
       setForm({ name: "", email: "", message: "" });
-      setTimeout(() => setSuccess(false), 3000);
-    }, 1500);
+      setTimeout(() => setSuccess(false), 4000);
+    } catch (err) {
+      setError("Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -30,71 +39,100 @@ const ContactSection = () => {
       <div className="container mx-auto max-w-2xl">
         <SectionHeading title="Get in Touch" subtitle="Let's connect and build something great" />
 
-        <div className="flex justify-center gap-4 mb-8">
-          <a
-            href="mailto:contact@jeetsoni.dev"
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-          >
-            <Mail size={16} /> Email
-          </a>
-          <a
-            href="https://linkedin.com/in/jeetsoni"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-          >
-            <Linkedin size={16} /> LinkedIn
-          </a>
-        </div>
+        <ScrollReveal>
+          <div className="flex justify-center gap-4 mb-8">
+            {[
+              { href: "mailto:contact@jeetsoni.dev", icon: Mail, label: "Email" },
+              { href: "https://linkedin.com/in/jeetsoni", icon: Linkedin, label: "LinkedIn" },
+            ].map((link) => (
+              <MagneticButton key={link.label}>
+                <a
+                  href={link.href}
+                  target={link.href.startsWith("http") ? "_blank" : undefined}
+                  rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors px-4 py-2 rounded-full bg-secondary/50 border border-border/50 hover:border-primary/30"
+                >
+                  <link.icon size={16} /> {link.label}
+                  <ArrowRight size={12} className="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                </a>
+              </MagneticButton>
+            ))}
+          </div>
+        </ScrollReveal>
 
-        <GlassCard tilt={false} className="p-6 md:p-8">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Input
-                placeholder="Your name"
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="bg-secondary/50 border-border focus:border-primary/50 text-foreground placeholder:text-muted-foreground"
-                required
-                maxLength={100}
-              />
-            </div>
-            <div>
-              <Input
-                type="email"
-                placeholder="Your email"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="bg-secondary/50 border-border focus:border-primary/50 text-foreground placeholder:text-muted-foreground"
-                required
-                maxLength={255}
-              />
-            </div>
-            <div>
-              <Textarea
-                placeholder="Your message"
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                className="bg-secondary/50 border-border focus:border-primary/50 text-foreground placeholder:text-muted-foreground min-h-[120px]"
-                required
-                maxLength={1000}
-              />
-            </div>
-            <Button
-              type="submit"
-              disabled={loading || success}
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-display gap-2"
-            >
-              {loading ? (
-                <><Loader2 size={16} className="animate-spin" /> Sending...</>
-              ) : success ? (
-                <><CheckCircle size={16} /> Message Sent!</>
-              ) : (
-                <><Send size={16} /> Send Message</>
+        <ScrollReveal>
+          <GlassCard tilt={false} className="p-6 md:p-8">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
+                <Input
+                  placeholder="Your name"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  className="bg-secondary/50 border-border focus:border-primary/50 text-foreground placeholder:text-muted-foreground transition-all duration-300 focus:shadow-[0_0_15px_-3px_hsl(187_100%_50%/0.2)]"
+                  required
+                  maxLength={100}
+                />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+              >
+                <Input
+                  type="email"
+                  placeholder="Your email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  className="bg-secondary/50 border-border focus:border-primary/50 text-foreground placeholder:text-muted-foreground transition-all duration-300 focus:shadow-[0_0_15px_-3px_hsl(187_100%_50%/0.2)]"
+                  required
+                  maxLength={255}
+                />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+              >
+                <Textarea
+                  placeholder="Your message"
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  className="bg-secondary/50 border-border focus:border-primary/50 text-foreground placeholder:text-muted-foreground min-h-[120px] transition-all duration-300 focus:shadow-[0_0_15px_-3px_hsl(187_100%_50%/0.2)]"
+                  required
+                  maxLength={1000}
+                />
+              </motion.div>
+
+              {error && (
+                <p className="text-xs text-destructive">{error}</p>
               )}
-            </Button>
-          </form>
-        </GlassCard>
+
+              <MagneticButton className="w-full">
+                <Button
+                  type="submit"
+                  disabled={loading || success}
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-display gap-2 relative overflow-hidden group"
+                >
+                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                  {loading ? (
+                    <><Loader2 size={16} className="animate-spin" /> Sending...</>
+                  ) : success ? (
+                    <><CheckCircle size={16} /> Message Sent!</>
+                  ) : (
+                    <><Send size={16} /> Send Message</>
+                  )}
+                </Button>
+              </MagneticButton>
+            </form>
+          </GlassCard>
+        </ScrollReveal>
       </div>
     </section>
   );

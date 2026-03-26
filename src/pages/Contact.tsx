@@ -1,19 +1,20 @@
 import Navbar from "@/components/Navbar";
+import PageTransition from "@/components/PageTransition";
 import ParticleBackground from "@/components/ParticleBackground";
+import ScrollProgress from "@/components/ScrollProgress";
 import ContactSection from "@/sections/ContactSection";
 import Footer from "@/components/Footer";
-import ScrollProgress from "@/components/ScrollProgress";
 
 const Contact = () => (
-  <div className="min-h-screen relative">
+  <PageTransition>
     <ParticleBackground />
     <ScrollProgress />
     <Navbar />
-    <div className="relative z-10 pt-16">
+    <div className="relative z-10 min-h-screen pt-8">
       <ContactSection />
     </div>
     <Footer />
-  </div>
+  </PageTransition>
 );
 
 export default Contact;

@@ -1,67 +1,82 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import PageTransition from "@/components/PageTransition";
 import ParticleBackground from "@/components/ParticleBackground";
-import SectionHeading from "@/components/SectionHeading";
-import GlassCard from "@/components/GlassCard";
-import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
+import ScrollReveal from "@/components/ScrollReveal";
+import GlassCard from "@/components/GlassCard";
+import StaggerContainer, { staggerItemVariants } from "@/components/StaggerContainer";
+import Footer from "@/components/Footer";
+import { api, type BlogPost } from "@/lib/api";
+import { Calendar, Clock, Loader2, ArrowRight } from "lucide-react";
 
-const posts = [
-  {
-    title: "Understanding Neural Network Architectures",
-    excerpt: "A deep dive into CNN, RNN, and Transformer architectures and their real-world applications.",
-    date: "2025-03-10",
-    tags: ["AI", "Deep Learning"],
-  },
-  {
-    title: "Building Secure IoT Systems",
-    excerpt: "Best practices for securing embedded systems and IoT networks from common attack vectors.",
-    date: "2025-02-28",
-    tags: ["Cybersecurity", "IoT"],
-  },
-  {
-    title: "PID Control Algorithms Explained",
-    excerpt: "How proportional-integral-derivative controllers work and how to tune them for robotics.",
-    date: "2025-02-15",
-    tags: ["Robotics", "Control Systems"],
-  },
-];
+const Blog = () => {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
 
-const Blog = () => (
-  <div className="min-h-screen relative">
-    <ParticleBackground />
-    <ScrollProgress />
-    <Navbar />
-    <div className="relative z-10 pt-24 pb-16">
-      <div className="container mx-auto px-4 max-w-3xl">
-        <SectionHeading title="Blog & Research" subtitle="Thoughts on technology and innovation" />
+  useEffect(() => {
+    api.getBlogPosts().then((data) => {
+      setPosts(data);
+      setLoading(false);
+    });
+  }, []);
 
-        <div className="space-y-6">
-          {posts.map((post, i) => (
-            <GlassCard key={post.title} delay={i * 0.1} className="p-6 cursor-pointer group">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="font-display font-semibold text-foreground group-hover:text-primary transition-colors mb-2">
-                    {post.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-3">{post.excerpt}</p>
-                  <div className="flex gap-2">
-                    {post.tags.map((tag) => (
-                      <span key={tag} className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary/80">
-                        {tag}
+  return (
+    <PageTransition>
+      <ParticleBackground />
+      <ScrollProgress />
+      <Navbar />
+      <div className="relative z-10 min-h-screen pt-24 pb-16 px-4">
+        <div className="container mx-auto max-w-3xl">
+          <ScrollReveal>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground text-center mb-4">
+              Blog & Research
+            </h1>
+            <p className="text-center text-muted-foreground mb-12 max-w-xl mx-auto">
+              Thoughts on cybersecurity, AI, robotics, and the tech cosmos.
+            </p>
+          </ScrollReveal>
+
+          {loading ? (
+            <div className="flex justify-center py-20">
+              <Loader2 className="animate-spin text-primary" size={32} />
+            </div>
+          ) : (
+            <StaggerContainer className="space-y-6">
+              {posts.map((post) => (
+                <motion.div key={post.id} variants={staggerItemVariants}>
+                  <GlassCard delay={0} className="p-6 md:p-8 cursor-pointer group hover:bg-primary/5 transition-colors duration-300">
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {post.tags.map((tag) => (
+                        <span key={tag} className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary/80">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <h2 className="font-display font-semibold text-lg md:text-xl text-foreground group-hover:text-primary transition-colors mb-2">
+                      {post.title}
+                    </h2>
+                    <p className="text-sm text-muted-foreground mb-4">{post.excerpt}</p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                        <span className="flex items-center gap-1"><Calendar size={12} /> {post.date}</span>
+                        <span className="flex items-center gap-1"><Clock size={12} /> {post.readTime}</span>
+                      </div>
+                      <span className="text-xs text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Read <ArrowRight size={12} />
                       </span>
-                    ))}
-                  </div>
-                </div>
-                <span className="text-xs font-mono text-muted-foreground shrink-0">{post.date}</span>
-              </div>
-            </GlassCard>
-          ))}
+                    </div>
+                  </GlassCard>
+                </motion.div>
+              ))}
+            </StaggerContainer>
+          )}
         </div>
       </div>
-    </div>
-    <Footer />
-  </div>
-);
+      <Footer />
+    </PageTransition>
+  );
+};
 
 export default Blog;

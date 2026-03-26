@@ -1,19 +1,20 @@
 import Navbar from "@/components/Navbar";
+import PageTransition from "@/components/PageTransition";
 import ParticleBackground from "@/components/ParticleBackground";
+import ScrollProgress from "@/components/ScrollProgress";
 import ExperienceSection from "@/sections/ExperienceSection";
 import Footer from "@/components/Footer";
-import ScrollProgress from "@/components/ScrollProgress";
 
 const Experience = () => (
-  <div className="min-h-screen relative">
+  <PageTransition>
     <ParticleBackground />
     <ScrollProgress />
     <Navbar />
-    <div className="relative z-10 pt-16">
+    <div className="relative z-10 min-h-screen pt-8">
       <ExperienceSection />
     </div>
     <Footer />
-  </div>
+  </PageTransition>
 );
 
 export default Experience;

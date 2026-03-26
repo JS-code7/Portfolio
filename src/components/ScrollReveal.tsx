@@ -1,4 +1,4 @@
-import { motion, type Variant } from "framer-motion";
+import { motion } from "framer-motion";
 import { type ReactNode } from "react";
 
 type Direction = "up" | "down" | "left" | "right" | "none";
@@ -14,7 +14,7 @@ interface ScrollRevealProps {
   scale?: number;
 }
 
-const getInitial = (direction: Direction, distance: number, scale?: number): Variant => {
+const getInitial = (direction: Direction, distance: number, scale?: number) => {
   const base: Record<string, number> = { opacity: 0 };
   if (scale) base.scale = scale;
   switch (direction) {

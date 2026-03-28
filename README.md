@@ -1,73 +1,108 @@
-# Welcome to your Lovable project
+# Jeet Soni — Developer Portfolio
 
-## Project info
+A cinematic, interactive developer portfolio built with React, TypeScript, Three.js, and Framer Motion.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+**Live:** [jeetsoni.lovable.app](https://jeetsoni.lovable.app)
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- 🌌 3D Skills Galaxy (React Three Fiber)
+- 🎮 Gaming-style project mission map
+- 🤖 AI chat assistant
+- 📊 Analytics dashboard with charts
+- 🐙 Live GitHub integration
+- ✨ 20+ scroll & hover animations
+- 🔒 Admin CMS dashboard
+- 📱 Fully responsive (360px–1920px)
 
-**Use Lovable**
+## Tech Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- **React 18** + TypeScript
+- **Vite** — fast build tooling
+- **Tailwind CSS** — utility-first styling
+- **Framer Motion** — animation system
+- **Three.js** (React Three Fiber) — 3D graphics
+- **Recharts** — data visualization
+- **ShadCN UI** — component library
 
-Changes made via Lovable will be committed automatically to this repo.
+## Getting Started
 
-**Use your preferred IDE**
+```bash
+# 1. Clone the repository
+git clone https://github.com/JS-code7/portfolio.git
+cd portfolio
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+# 2. Install dependencies
+npm install
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+# 3. Copy environment variables
+cp .env.example .env
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 4. Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Open [http://localhost:8080](http://localhost:8080) in your browser.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Build for Production
 
-**Use GitHub Codespaces**
+```bash
+npm run build
+npm run preview
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Deployment
 
-## What technologies are used for this project?
+### Option A: Lovable (Recommended)
 
-This project is built with:
+1. Open your project in [Lovable](https://lovable.dev)
+2. Click **Share → Publish**
+3. Your app is live at `yourproject.lovable.app`
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Option B: Vercel
 
-## How can I deploy this project?
+1. Push code to GitHub
+2. Import the repo at [vercel.com/new](https://vercel.com/new)
+3. Framework: **Vite**
+4. Build command: `npm run build`
+5. Output directory: `dist`
+6. Add environment variables from `.env.example`
+7. Deploy
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+### Option C: Netlify
 
-## Can I connect a custom domain to my Lovable project?
+1. Push to GitHub
+2. Import at [app.netlify.com](https://app.netlify.com)
+3. Build command: `npm run build`
+4. Publish directory: `dist`
 
-Yes, you can!
+## Custom Domain
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+1. In Lovable: **Project Settings → Domains → Connect Domain**
+2. Add DNS records:
+   - **A Record** `@` → `185.158.133.1`
+   - **A Record** `www` → `185.158.133.1`
+   - **TXT Record** `_lovable` → provided verification value
+3. Wait for DNS propagation (up to 72 hours)
+4. SSL is provisioned automatically
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Project Structure
+
+```
+src/
+├── components/     # Reusable UI components
+├── sections/       # Homepage sections
+├── pages/          # Route pages
+├── lib/            # API layer & utilities
+├── hooks/          # Custom React hooks
+└── index.css       # Design system tokens
+```
+
+## Links
+
+- **GitHub:** [github.com/JS-code7](https://github.com/JS-code7)
+- **LinkedIn:** [linkedin.com/in/jeet-soni-01bb09337](https://www.linkedin.com/in/jeet-soni-01bb09337/)
+
+## License
+
+MIT © Jeet Soni

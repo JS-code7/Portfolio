@@ -10,6 +10,7 @@ const navItems = [
   { label: "Skills Galaxy", href: "/skills-galaxy" },
   { label: "Experience", href: "/experience" },
   { label: "Blog", href: "/blog" },
+  { label: "Analytics", href: "/analytics" },
   { label: "Contact", href: "/contact" },
 ];
 

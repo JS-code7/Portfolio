@@ -14,7 +14,10 @@ import Experience from "./pages/Experience";
 import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
 import Admin from "./pages/Admin";
+import Analytics from "./pages/Analytics";
 import NotFound from "./pages/NotFound";
+import AIChatWidget from "@/components/AIChatWidget";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +25,7 @@ const AnimatedRoutes = () => {
   const location = useLocation();
   return (
     <AnimatePresence mode="wait">
+      <SmoothScroll />
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Index />} />
         <Route path="/about" element={<About />} />
@@ -31,6 +35,7 @@ const AnimatedRoutes = () => {
         <Route path="/experience" element={<Experience />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/analytics" element={<Analytics />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -46,6 +51,7 @@ const App = () => (
       <GlowCursor />
       <BrowserRouter>
         <AnimatedRoutes />
+        <AIChatWidget />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

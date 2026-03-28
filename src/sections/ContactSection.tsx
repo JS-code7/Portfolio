@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Loader2, CheckCircle, Mail, Linkedin, ArrowRight } from "lucide-react";
+import { Send, Loader2, CheckCircle, Mail, Linkedin, Github, ArrowRight } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import GlassCard from "@/components/GlassCard";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -43,7 +43,8 @@ const ContactSection = () => {
           <div className="flex justify-center gap-4 mb-8">
             {[
               { href: "mailto:contact@jeetsoni.dev", icon: Mail, label: "Email" },
-              { href: "https://linkedin.com/in/jeetsoni", icon: Linkedin, label: "LinkedIn" },
+              { href: "https://www.linkedin.com/in/jeet-soni-01bb09337/", icon: Linkedin, label: "LinkedIn" },
+              { href: "https://github.com/JS-code7", icon: Github, label: "GitHub" },
             ].map((link) => (
               <MagneticButton key={link.label}>
                 <a

@@ -96,7 +96,7 @@ const AIChatWidget = () => {
             className="fixed bottom-24 right-6 z-50 w-[340px] sm:w-[380px] max-h-[500px] rounded-2xl overflow-hidden glass-strong glow-border flex flex-col"
           >
             {/* Header */}
-            <div className="p-4 border-b border-border/50 flex items-center gap-3">
+            <div className="p-4 border-b border-border/50 flex items-center gap-3 scanline">
               <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
                 <Sparkles size={16} className="text-primary" />
               </div>

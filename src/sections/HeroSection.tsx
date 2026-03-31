@@ -123,13 +123,16 @@ const HeroSection = () => {
             </Link>
           </MagneticButton>
           <MagneticButton>
-            <Button
-              variant="ghost"
-              size="lg"
-              className="text-muted-foreground hover:text-primary font-display gap-2 px-8"
-            >
-              <Download size={16} /> Download Resume
-            </Button>
+            <a href="/resume.pdf" download="Jeet_Soni_Resume.pdf">
+              <Button
+                variant="ghost"
+                size="lg"
+                className="text-muted-foreground hover:text-primary font-display gap-2 px-8 relative overflow-hidden group"
+              >
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                <Download size={16} /> Download Resume
+              </Button>
+            </a>
           </MagneticButton>
         </motion.div>
 

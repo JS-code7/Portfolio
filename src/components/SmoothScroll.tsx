@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const SmoothScroll = () => {
-  const { hash } = useLocation();
+  const { hash, pathname } = useLocation();
 
   useEffect(() => {
     if (hash) {
@@ -13,9 +13,9 @@ const SmoothScroll = () => {
         }, 100);
       }
     } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "instant" });
     }
-  }, [hash]);
+  }, [hash, pathname]);
 
   return null;
 };

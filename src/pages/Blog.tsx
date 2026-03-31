@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import PageTransition from "@/components/PageTransition";
 import ParticleBackground from "@/components/ParticleBackground";
@@ -46,6 +47,7 @@ const Blog = () => {
             <StaggerContainer className="space-y-6">
               {posts.map((post) => (
                 <motion.div key={post.id} variants={staggerItemVariants}>
+                  <Link to={`/blog/${post.slug}`}>
                   <GlassCard delay={0} className="p-6 md:p-8 cursor-pointer group hover:bg-primary/5 transition-colors duration-300">
                     <div className="flex flex-wrap gap-2 mb-3">
                       {post.tags.map((tag) => (
@@ -68,6 +70,7 @@ const Blog = () => {
                       </span>
                     </div>
                   </GlassCard>
+                  </Link>
                 </motion.div>
               ))}
             </StaggerContainer>

@@ -101,8 +101,8 @@ const AIChatWidget = () => {
                 <Sparkles size={16} className="text-primary" />
               </div>
               <div>
-                <h3 className="text-sm font-display font-semibold text-foreground">AI Assistant</h3>
-                <p className="text-[10px] text-primary font-mono">Online • Ask me anything</p>
+                <h3 className="text-sm font-display font-semibold text-foreground terminal-glow">AI Assistant</h3>
+                <p className="text-[10px] text-primary font-mono terminal-glow">Online • Ask me anything</p>
               </div>
             </div>
 

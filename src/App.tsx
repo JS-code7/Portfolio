@@ -12,6 +12,7 @@ import ProjectDetail from "./pages/ProjectDetail";
 import SkillsGalaxy from "./pages/SkillsGalaxy";
 import Experience from "./pages/Experience";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import Contact from "./pages/Contact";
 import Admin from "./pages/Admin";
 import Analytics from "./pages/Analytics";

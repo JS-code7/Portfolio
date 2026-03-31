@@ -70,6 +70,7 @@ const Blog = () => {
                       </span>
                     </div>
                   </GlassCard>
+                  </Link>
                 </motion.div>
               ))}
             </StaggerContainer>

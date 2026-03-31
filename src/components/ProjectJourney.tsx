@@ -3,11 +3,11 @@ import { Rocket, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const missions = [
-  { slug: "smart-traffic", title: "AI-Based Smart Traffic Assistance System", status: "complete" },
-  { slug: "flappy-bird", title: "Flappy Bird Game (Unreal Engine)", status: "complete" },
-  { slug: "upi-scam", title: "UPI Scam Detection Tool", status: "complete" },
-  { slug: "line-follower", title: "Line Follower Robot", status: "complete" },
-  { slug: "obstacle-bot", title: "Obstacle Assist Bot", status: "active" },
+  { slug: "ai-traffic-system", title: "AI-Based Smart Traffic Assistance System", status: "complete" },
+  { slug: "flappy-bird-unreal", title: "Flappy Bird Game (Unreal Engine)", status: "complete" },
+  { slug: "upi-scam-detection", title: "UPI Scam Detection Tool", status: "complete" },
+  { slug: "line-follower-robot", title: "Line Follower Robot", status: "complete" },
+  { slug: "obstacle-assist-bot", title: "Obstacle Assist Bot", status: "active" },
 ];
 
 const ProjectJourney = () => {

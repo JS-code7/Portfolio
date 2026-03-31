@@ -54,15 +54,16 @@ const Navbar = () => {
                   layoutId="nav-indicator"
                   className="absolute inset-0 bg-primary/10 rounded-lg -z-10"
                   transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  style={{ position: "absolute" }}
                 />
               )}
-              {/* Hover underline */}
-              <motion.div
-                className="absolute bottom-0 left-1/2 h-px bg-primary -translate-x-1/2"
-                initial={{ width: 0 }}
-                whileHover={{ width: "60%" }}
-                transition={{ duration: 0.2 }}
-              />
+              {location.pathname === item.href && (
+                <motion.div
+                  layoutId="nav-underline"
+                  className="absolute -bottom-0.5 left-1/4 right-1/4 h-0.5 bg-primary rounded-full"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
             </Link>
           ))}
         </div>

@@ -37,36 +37,37 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-1">
-          {navItems.map((item) => (
-            <Link
-              key={item.label}
-              to={item.href}
-              className={`relative text-sm px-3 py-1.5 rounded-lg transition-colors duration-200 ${
-                location.pathname === item.href
-                  ? "text-primary"
-                  : "text-muted-foreground hover:text-primary"
-              }`}
-            >
-              {item.label}
-              {location.pathname === item.href && (
-                <motion.div
-                  layoutId="nav-indicator"
-                  className="absolute inset-0 bg-primary/10 rounded-lg -z-10"
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  style={{ position: "absolute" }}
-                />
-              )}
-              {location.pathname === item.href && (
-                <motion.div
-                  layoutId="nav-underline"
-                  className="absolute -bottom-0.5 left-1/4 right-1/4 h-0.5 bg-primary rounded-full"
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                />
-              )}
-            </Link>
-          ))}
-        </div>
+        <LayoutGroup id="navbar">
+          <div className="hidden md:flex items-center gap-1 relative">
+            {navItems.map((item) => (
+              <Link
+                key={item.label}
+                to={item.href}
+                className={`relative text-sm px-3 py-1.5 rounded-lg transition-colors duration-200 ${
+                  location.pathname === item.href
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-primary"
+                }`}
+              >
+                {item.label}
+                {location.pathname === item.href && (
+                  <motion.div
+                    layoutId="nav-indicator"
+                    className="absolute inset-0 bg-primary/10 rounded-lg -z-10"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                {location.pathname === item.href && (
+                  <motion.div
+                    layoutId="nav-underline"
+                    className="absolute -bottom-0.5 left-1/4 right-1/4 h-0.5 bg-primary rounded-full"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+              </Link>
+            ))}
+          </div>
+        </LayoutGroup>
 
         {/* Mobile toggle */}
         <motion.button

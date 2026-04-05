@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import PageTransition from "@/components/PageTransition";
 import ParticleBackground from "@/components/ParticleBackground";
+import AnimatedVectorBackground from "@/components/AnimatedVectorBackground";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollReveal from "@/components/ScrollReveal";
 import TextReveal from "@/components/TextReveal";
@@ -22,6 +23,7 @@ const focusAreas = [
 const About = () => (
   <PageTransition>
     <ParticleBackground />
+    <AnimatedVectorBackground />
     <ScrollProgress />
     <Navbar />
     <div className="relative z-10 min-h-screen pt-24 pb-16 px-4">

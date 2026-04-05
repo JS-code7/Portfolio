@@ -3,6 +3,7 @@ import SplashScreen from "@/components/SplashScreen";
 import ParticleBackground from "@/components/ParticleBackground";
 import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
+import AnimatedVectorBackground from "@/components/AnimatedVectorBackground";
 import HeroSection from "@/sections/HeroSection";
 import AboutSection from "@/sections/AboutSection";
 import SkillsSection from "@/sections/SkillsSection";
@@ -26,6 +27,7 @@ const Index = () => {
       <ParticleBackground />
       {splashDone && (
         <div className="relative z-10">
+          <AnimatedVectorBackground />
           <Navbar />
           <ScrollProgress />
           <HeroSection />

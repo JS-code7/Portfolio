@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, FolderOpen, Briefcase, Download } from "lucide-react";
+import { ArrowDown, FolderOpen, Briefcase, Download, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import FloatingIcons from "@/components/FloatingIcons";
@@ -97,7 +97,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.4 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 flex-wrap"
         >
           <MagneticButton>
             <Link to="/projects">
@@ -121,6 +121,17 @@ const HeroSection = () => {
                 <Briefcase size={16} /> Explore Experience
               </Button>
             </Link>
+          </MagneticButton>
+          <MagneticButton>
+            <a href="#contact">
+              <Button
+                variant="secondary"
+                size="lg"
+                className="border border-primary/20 bg-secondary/70 text-foreground hover:bg-primary/10 hover:text-primary font-display gap-2 px-8"
+              >
+                <Mail size={16} /> Contact Me
+              </Button>
+            </a>
           </MagneticButton>
           <MagneticButton>
             <a href="/resume.pdf" download="Jeet_Soni_Resume.pdf">

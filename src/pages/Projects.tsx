@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import PageTransition from "@/components/PageTransition";
 import ParticleBackground from "@/components/ParticleBackground";
+import AnimatedVectorBackground from "@/components/AnimatedVectorBackground";
 import GlassCard from "@/components/GlassCard";
 import ScrollReveal from "@/components/ScrollReveal";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -32,6 +33,7 @@ const Projects = () => {
   return (
     <PageTransition>
       <ParticleBackground />
+      <AnimatedVectorBackground />
       <ScrollProgress />
       <Navbar />
       <div className="relative z-10 min-h-screen pt-24 pb-16 px-4">

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ExternalLink, Loader2 } from "lucide-react";
+import { Link } from "react-router-dom";
 import SectionHeading from "@/components/SectionHeading";
 import GlassCard from "@/components/GlassCard";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -167,9 +168,16 @@ const ProjectsSection = () => {
                 </ul>
               </div>
 
-              <Button variant="outline" size="sm" className="border-primary/30 text-foreground hover:bg-primary/10 gap-2 w-full group">
-                <ExternalLink size={14} className="group-hover:rotate-12 transition-transform" /> View Project
-              </Button>
+               <Button
+                 asChild
+                 variant="outline"
+                 size="sm"
+                 className="border-primary/30 text-foreground hover:bg-primary/10 gap-2 w-full group"
+               >
+                 <Link to={`/projects/${selectedProject.slug}`}>
+                   <ExternalLink size={14} className="group-hover:rotate-12 transition-transform" /> View Project
+                 </Link>
+               </Button>
             </motion.div>
           </motion.div>
         )}

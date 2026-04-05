@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import PageTransition from "@/components/PageTransition";
 import ParticleBackground from "@/components/ParticleBackground";
+import AnimatedVectorBackground from "@/components/AnimatedVectorBackground";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollReveal from "@/components/ScrollReveal";
 import GlassCard from "@/components/GlassCard";
@@ -120,18 +121,30 @@ const ProjectDetail = () => {
           </div>
 
           <ScrollReveal delay={0.4}>
-            <div className="flex gap-3">
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2 group">
+            <div className="flex flex-wrap gap-3">
+              <Button
+                asChild
+                className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2 group"
+              >
+                <a href="#contact">
                 <ExternalLink size={14} className="group-hover:rotate-12 transition-transform" /> View Live
+                </a>
               </Button>
-              <Button variant="outline" className="border-primary/30 text-foreground hover:bg-primary/10">
-                Source Code
+              <Button
+                asChild
+                variant="outline"
+                className="border-primary/30 text-foreground hover:bg-primary/10"
+              >
+                <a href="https://github.com/JS-code7" target="_blank" rel="noopener noreferrer">
+                  Source Code
+                </a>
               </Button>
             </div>
           </ScrollReveal>
         </div>
       </div>
       <Footer />
+      <div id="contact" className="sr-only" />
     </PageTransition>
   );
 };

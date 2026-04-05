@@ -10,6 +10,8 @@ export interface Project {
   status: "published" | "draft";
   category: string;
   image?: string;
+  liveUrl?: string;
+  repoUrl?: string;
 }
 
 export interface BlogPost {
@@ -46,6 +48,7 @@ const projectsData: Project[] = [
     highlights: ["Real-time traffic analysis with 94% accuracy", "AI-powered congestion predictions", "Smart signal control reducing wait times by 35%", "IoT sensor integration for live data streams"],
     status: "published",
     category: "AI",
+    repoUrl: "https://github.com/JS-code7",
   },
   {
     id: "2",
@@ -56,6 +59,7 @@ const projectsData: Project[] = [
     highlights: ["Custom physics engine with tuned gravity curves", "Dynamic particle effects on collision & scoring", "Procedural obstacle generation for infinite gameplay", "High score tracking with persistent storage"],
     status: "published",
     category: "Game Dev",
+    repoUrl: "https://github.com/JS-code7",
   },
   {
     id: "3",
@@ -66,6 +70,7 @@ const projectsData: Project[] = [
     highlights: ["Pattern recognition catching 89% of known scam types", "Real-time alerts via SMS and push notifications", "Anomaly detection using isolation forests", "Dashboard for transaction monitoring"],
     status: "published",
     category: "Security",
+    repoUrl: "https://github.com/JS-code7",
   },
   {
     id: "4",
@@ -76,6 +81,7 @@ const projectsData: Project[] = [
     highlights: ["PID control algorithm with auto-tuning", "Handles 90° turns at full speed", "Sensor calibration for multiple surface types", "Completed obstacle courses in under 45 seconds"],
     status: "published",
     category: "Robotics",
+    repoUrl: "https://github.com/JS-code7",
   },
   {
     id: "5",
@@ -86,6 +92,7 @@ const projectsData: Project[] = [
     highlights: ["360° obstacle detection with servo-mounted sensor", "A* inspired path planning algorithm", "Real-time sensor fusion from 3 ultrasonic inputs", "Navigates complex mazes autonomously"],
     status: "published",
     category: "Robotics",
+    repoUrl: "https://github.com/JS-code7",
   },
 ];
 

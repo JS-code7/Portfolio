@@ -20,6 +20,7 @@ Set:
 - `SERVER_PORT` (optional, default `8787`)
 - `VITE_API_BASE_URL` (default `http://localhost:8787`)
 - `VITE_ADMIN_PASSWORD` (admin page login password)
+- `CORS_ORIGIN` (comma-separated allowed frontend origins)
 
 ## Run locally
 

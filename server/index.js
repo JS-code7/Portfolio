@@ -10,10 +10,18 @@ import { isValidEmail, pickSafeMetadata, sanitizeText } from "./utils/validators
 
 const app = express();
 const PORT = Number(process.env.SERVER_PORT || 8787);
+const allowedOrigins = (process.env.CORS_ORIGIN || "http://localhost:8080,http://localhost:8081")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
 app.use(
   cors({
-    origin: true,
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   }),
 );

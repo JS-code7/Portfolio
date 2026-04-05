@@ -20,6 +20,13 @@ const ContactSection = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) return;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email.trim())) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
@@ -28,8 +35,8 @@ const ContactSection = () => {
       setSuccess(true);
       setForm({ name: "", email: "", message: "" });
       setTimeout(() => setSuccess(false), 4000);
-    } catch (err) {
-      setError("Failed to send message. Please try again.");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Failed to send message. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -42,6 +49,15 @@ const ContactSection = () => {
 
         <ScrollReveal>
           <SocialLinks className="flex justify-center flex-wrap gap-4 mb-8" />
+          <p className="text-center text-xs text-muted-foreground font-mono mb-4">
+            Direct email:{" "}
+            <a
+              href="mailto:SONIJEET660@GMAIL.COM"
+              className="text-primary hover:underline"
+            >
+              SONIJEET660@GMAIL.COM
+            </a>
+          </p>
         </ScrollReveal>
 
         <ScrollReveal>

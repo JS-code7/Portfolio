@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Mail, Linkedin, Github } from "lucide-react";
 
 const socialLinks = [
-  { href: "mailto:contact@jeetsoni.dev", icon: Mail, label: "Email" },
+  { href: "mailto:SONIJEET660@GMAIL.COM", icon: Mail, label: "Email" },
   { href: "https://www.linkedin.com/in/jeet-soni-01bb09337/", icon: Linkedin, label: "LinkedIn" },
   { href: "https://github.com/JS-code7", icon: Github, label: "GitHub" },
 ];
@@ -15,7 +15,7 @@ interface SocialLinksProps {
 const SocialLinks = ({ className = "", variant = "pill" }: SocialLinksProps) => (
   <div className={className}>
     {socialLinks.map((link) => {
-      const isExternal = link.href.startsWith("http");
+      const isExternal = link.href.startsWith("http") || link.href.startsWith("mailto:");
       return (
         <motion.a
           key={link.label}

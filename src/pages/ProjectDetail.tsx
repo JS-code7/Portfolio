@@ -14,7 +14,7 @@ import { ArrowLeft, ExternalLink, Loader2, CheckCircle, Zap } from "lucide-react
 import { Button } from "@/components/ui/button";
 
 const PROJECT_INQUIRY_MAILTO =
-  "mailto:contact@jeetsoni.dev?subject=Project%20Inquiry&body=Hi%20Jeet%2C%20I%20would%20like%20to%20know%20more%20about%20this%20project.";
+  "mailto:SONIJEET660@GMAIL.COM?subject=Project%20Inquiry&body=Hi%20Jeet%2C%20I%20would%20like%20to%20know%20more%20about%20this%20project.";
 const SOURCE_CODE_URL = "https://github.com/JS-code7";
 
 const ProjectDetail = () => {

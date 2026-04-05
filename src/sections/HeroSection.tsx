@@ -123,7 +123,7 @@ const HeroSection = () => {
             </Link>
           </MagneticButton>
           <MagneticButton>
-            <a href="#contact">
+            <a href="/#contact">
               <Button
                 variant="secondary"
                 size="lg"
@@ -134,7 +134,7 @@ const HeroSection = () => {
             </a>
           </MagneticButton>
           <MagneticButton>
-            <a href="/resume.pdf" download="Jeet_Soni_Resume.pdf">
+            <a href="/resume.pdf" download="Jeet_Soni_Resume.pdf" type="application/pdf">
               <Button
                 variant="ghost"
                 size="lg"

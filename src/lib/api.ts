@@ -184,10 +184,40 @@ export const api = {
   },
 
   submitContact: async (data: ContactSubmission): Promise<{ success: boolean; message: string }> => {
-    await delay(1200);
+    await delay(300);
     if (!data.name.trim() || !data.email.trim() || !data.message.trim()) {
       throw new Error("All fields are required");
     }
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      throw new Error("Email service is not configured. Please set EmailJS environment variables.");
+    }
+
+    const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        service_id: serviceId,
+        template_id: templateId,
+        user_id: publicKey,
+        template_params: {
+          from_name: data.name.trim(),
+          from_email: data.email.trim(),
+          message: data.message.trim(),
+          to_email: "SONIJEET660@GMAIL.COM",
+          reply_to: data.email.trim(),
+        },
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to send message. Please try again.");
+    }
+
     return { success: true, message: "Message sent successfully!" };
   },
 

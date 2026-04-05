@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Loader2, CheckCircle, Mail, Linkedin, Github, ArrowRight } from "lucide-react";
+import { Send, Loader2, CheckCircle } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import GlassCard from "@/components/GlassCard";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/lib/api";
+import SocialLinks from "@/components/SocialLinks";
 
 const ContactSection = () => {
   const [loading, setLoading] = useState(false);
@@ -40,25 +41,7 @@ const ContactSection = () => {
         <SectionHeading title="Get in Touch" subtitle="Let's connect and build something great" />
 
         <ScrollReveal>
-          <div className="flex justify-center gap-4 mb-8">
-            {[
-              { href: "mailto:contact@jeetsoni.dev", icon: Mail, label: "Email" },
-              { href: "https://www.linkedin.com/in/jeet-soni-01bb09337/", icon: Linkedin, label: "LinkedIn" },
-              { href: "https://github.com/JS-code7", icon: Github, label: "GitHub" },
-            ].map((link) => (
-              <MagneticButton key={link.label}>
-                <a
-                  href={link.href}
-                  target={link.href.startsWith("http") ? "_blank" : undefined}
-                  rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors px-4 py-2 rounded-full bg-secondary/50 border border-border/50 hover:border-primary/30"
-                >
-                  <link.icon size={16} /> {link.label}
-                  <ArrowRight size={12} className="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all" />
-                </a>
-              </MagneticButton>
-            ))}
-          </div>
+          <SocialLinks className="flex justify-center flex-wrap gap-4 mb-8" />
         </ScrollReveal>
 
         <ScrollReveal>

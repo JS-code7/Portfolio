@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import PageTransition from "@/components/PageTransition";
 import ParticleBackground from "@/components/ParticleBackground";
+import AnimatedVectorBackground from "@/components/AnimatedVectorBackground";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollReveal from "@/components/ScrollReveal";
 import GlassCard from "@/components/GlassCard";
@@ -11,6 +12,10 @@ import Footer from "@/components/Footer";
 import { api, type Project } from "@/lib/api";
 import { ArrowLeft, ExternalLink, Loader2, CheckCircle, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+const PROJECT_INQUIRY_MAILTO =
+  "mailto:contact@jeetsoni.dev?subject=Project%20Inquiry&body=Hi%20Jeet%2C%20I%20would%20like%20to%20know%20more%20about%20this%20project.";
+const SOURCE_CODE_URL = "https://github.com/JS-code7";
 
 const ProjectDetail = () => {
   const { slug } = useParams();
@@ -120,12 +125,23 @@ const ProjectDetail = () => {
           </div>
 
           <ScrollReveal delay={0.4}>
-            <div className="flex gap-3">
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2 group">
-                <ExternalLink size={14} className="group-hover:rotate-12 transition-transform" /> View Live
+            <div className="flex flex-wrap gap-3">
+              <Button
+                asChild
+                className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2 group"
+              >
+                <a href={PROJECT_INQUIRY_MAILTO}>
+                  <ExternalLink size={14} className="group-hover:rotate-12 transition-transform" /> Contact for Live Demo
+                </a>
               </Button>
-              <Button variant="outline" className="border-primary/30 text-foreground hover:bg-primary/10">
-                Source Code
+              <Button
+                asChild
+                variant="outline"
+                className="border-primary/30 text-foreground hover:bg-primary/10"
+              >
+                <a href={SOURCE_CODE_URL} target="_blank" rel="noopener noreferrer">
+                  Source Code
+                </a>
               </Button>
             </div>
           </ScrollReveal>

@@ -1,11 +1,6 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, Heart } from "lucide-react";
-
-const socialLinks = [
-  { href: "mailto:contact@jeetsoni.dev", icon: Mail, label: "Email" },
-  { href: "https://www.linkedin.com/in/jeet-soni-01bb09337/", icon: Linkedin, label: "LinkedIn" },
-  { href: "https://github.com/JS-code7", icon: Github, label: "GitHub" },
-];
+import { Heart } from "lucide-react";
+import SocialLinks from "@/components/SocialLinks";
 
 const Footer = () => (
   <footer className="relative py-12 px-4 border-t border-border/50">
@@ -21,21 +16,7 @@ const Footer = () => (
           JS
         </motion.div>
 
-        <div className="flex items-center gap-3">
-          {socialLinks.map((link) => (
-            <motion.a
-              key={link.label}
-              href={link.href}
-              target={link.href.startsWith("http") ? "_blank" : undefined}
-              rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              whileHover={{ scale: 1.15, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-10 h-10 rounded-full bg-secondary/50 border border-border/50 hover:border-primary/30 hover:bg-primary/10 flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300"
-            >
-              <link.icon size={16} />
-            </motion.a>
-          ))}
-        </div>
+        <SocialLinks className="flex items-center gap-3" variant="icon" />
 
         <p className="text-xs text-muted-foreground flex items-center gap-1.5">
           © {new Date().getFullYear()} Jeet Soni. Built with{" "}

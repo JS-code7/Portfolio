@@ -126,6 +126,7 @@ const blogData: BlogPost[] = [
 ];
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8787";
 
 const GITHUB_USERNAME = "JS-code7";
 
@@ -189,33 +190,19 @@ export const api = {
       throw new Error("All fields are required");
     }
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-    if (!serviceId || !templateId || !publicKey) {
-      throw new Error("Email service is not configured. Please set EmailJS environment variables.");
-    }
-
-    const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+    const response = await fetch(`${API_BASE}/api/contact`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        service_id: serviceId,
-        template_id: templateId,
-        user_id: publicKey,
-        template_params: {
-          from_name: data.name.trim(),
-          from_email: data.email.trim(),
-          message: data.message.trim(),
-          to_email: "SONIJEET660@GMAIL.COM",
-          reply_to: data.email.trim(),
-        },
+        name: data.name.trim(),
+        email: data.email.trim(),
+        message: data.message.trim(),
       }),
     });
 
+    const payload = await response.json().catch(() => ({}));
     if (!response.ok) {
-      throw new Error("Failed to send message. Please try again.");
+      throw new Error(payload.message || "Failed to send message. Please try again.");
     }
 
     return { success: true, message: "Message sent successfully!" };

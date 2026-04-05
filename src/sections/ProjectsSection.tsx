@@ -9,6 +9,7 @@ import StaggerContainer, { staggerItemVariants } from "@/components/StaggerConta
 import { Button } from "@/components/ui/button";
 import { api, type Project } from "@/lib/api";
 import { rankFeaturedProjects, getMostActiveTech } from "@/lib/intelligence";
+import { logEvent } from "@/lib/logger";
 
 const ProjectsSection = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -108,7 +109,10 @@ const ProjectsSection = () => {
                   exit={{ opacity: 0, scale: 0.8 }}
                 >
                   <GlassCard delay={0} className="p-6 cursor-pointer group h-full">
-                    <div onClick={() => setSelectedProject(project)} className="h-full flex flex-col">
+                    <div onClick={() => {
+                      logEvent("project", "project_card_open", { slug: project.slug, title: project.title });
+                      setSelectedProject(project);
+                    }} className="h-full flex flex-col">
                       {/* Category badge */}
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary/80 self-start mb-3">
                         {project.category}

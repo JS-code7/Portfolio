@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { logEvent } from "@/lib/logger";
 
 const SmoothScroll = () => {
   const { hash, pathname } = useLocation();
@@ -16,6 +17,10 @@ const SmoothScroll = () => {
       window.scrollTo({ top: 0, behavior: "instant" });
     }
   }, [hash, pathname]);
+
+  useEffect(() => {
+    logEvent("visit", "page_visit", { page: pathname, hash });
+  }, [pathname, hash]);
 
   return null;
 };

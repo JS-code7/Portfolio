@@ -14,6 +14,7 @@ import ProjectJourney from "@/components/ProjectJourney";
 import Footer from "@/components/Footer";
 import { api, type Project } from "@/lib/api";
 import { Loader2, ArrowRight } from "lucide-react";
+import { logEvent } from "@/lib/logger";
 
 const Projects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -81,7 +82,10 @@ const Projects = () => {
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((project) => (
                 <motion.div key={project.id} variants={staggerItemVariants}>
-                  <Link to={`/projects/${project.slug}`}>
+                  <Link
+                    to={`/projects/${project.slug}`}
+                    onClick={() => logEvent("project", "projects_page_click", { slug: project.slug, title: project.title })}
+                  >
                     <GlassCard delay={0} className="p-6 cursor-pointer group h-full hover:bg-primary/5 transition-colors duration-300">
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary/80">
                         {project.category}

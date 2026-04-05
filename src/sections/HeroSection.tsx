@@ -6,6 +6,7 @@ import FloatingIcons from "@/components/FloatingIcons";
 import TypewriterText from "@/components/TypewriterText";
 import MagneticButton from "@/components/MagneticButton";
 import ScrollReveal from "@/components/ScrollReveal";
+import { logEvent } from "@/lib/logger";
 
 const HeroSection = () => {
   return (
@@ -102,6 +103,7 @@ const HeroSection = () => {
           <MagneticButton>
             <Link to="/projects">
               <Button
+                onClick={() => logEvent("click", "hero_view_projects")}
                 size="lg"
                 className="bg-primary text-primary-foreground hover:bg-primary/90 font-display gap-2 px-8 relative overflow-hidden group"
               >
@@ -113,6 +115,7 @@ const HeroSection = () => {
           <MagneticButton>
             <Link to="/experience">
               <Button
+                onClick={() => logEvent("click", "hero_explore_experience")}
                 variant="outline"
                 size="lg"
                 className="border-primary/30 text-foreground hover:bg-primary/10 font-display gap-2 px-8 relative overflow-hidden group"
@@ -125,6 +128,7 @@ const HeroSection = () => {
           <MagneticButton>
             <a href="/#contact">
               <Button
+                onClick={() => logEvent("click", "hero_contact_click")}
                 variant="secondary"
                 size="lg"
                 className="border border-primary/20 bg-secondary/70 text-foreground hover:bg-primary/10 hover:text-primary font-display gap-2 px-8"
@@ -136,6 +140,7 @@ const HeroSection = () => {
           <MagneticButton>
             <a href="/resume.pdf" download="Jeet_Soni_Resume.pdf" type="application/pdf">
               <Button
+                onClick={() => logEvent("click", "hero_resume_download")}
                 variant="ghost"
                 size="lg"
                 className="text-muted-foreground hover:text-primary font-display gap-2 px-8 relative overflow-hidden group"

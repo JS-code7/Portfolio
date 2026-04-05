@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Rocket, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { logEvent } from "@/lib/logger";
 
 const missions = [
   { slug: "ai-traffic-system", title: "AI-Based Smart Traffic Assistance System", status: "complete" },
@@ -41,7 +42,10 @@ const ProjectJourney = () => {
           viewport={{ once: true }}
           transition={{ delay: i * 0.1 }}
           className="relative pl-14 mb-6 cursor-pointer group"
-          onClick={() => navigate(`/projects/${mission.slug}`)}
+          onClick={() => {
+            logEvent("project", "journey_project_click", { slug: mission.slug, title: mission.title });
+            navigate(`/projects/${mission.slug}`);
+          }}
         >
           {/* Node */}
           <div

@@ -13,6 +13,10 @@ import { api, type Project } from "@/lib/api";
 import { ArrowLeft, ExternalLink, Loader2, CheckCircle, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const PROJECT_INQUIRY_MAILTO =
+  "mailto:contact@jeetsoni.dev?subject=Project%20Inquiry&body=Hi%20Jeet%2C%20I%20would%20like%20to%20know%20more%20about%20this%20project.";
+const SOURCE_CODE_URL = "https://github.com/JS-code7";
+
 const ProjectDetail = () => {
   const { slug } = useParams();
   const [project, setProject] = useState<Project | null>(null);
@@ -126,8 +130,8 @@ const ProjectDetail = () => {
                 asChild
                 className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2 group"
               >
-                <a href="#contact">
-                <ExternalLink size={14} className="group-hover:rotate-12 transition-transform" /> View Live
+                <a href={PROJECT_INQUIRY_MAILTO}>
+                  <ExternalLink size={14} className="group-hover:rotate-12 transition-transform" /> Contact for Live Demo
                 </a>
               </Button>
               <Button
@@ -135,7 +139,7 @@ const ProjectDetail = () => {
                 variant="outline"
                 className="border-primary/30 text-foreground hover:bg-primary/10"
               >
-                <a href="https://github.com/JS-code7" target="_blank" rel="noopener noreferrer">
+                <a href={SOURCE_CODE_URL} target="_blank" rel="noopener noreferrer">
                   Source Code
                 </a>
               </Button>
@@ -144,7 +148,6 @@ const ProjectDetail = () => {
         </div>
       </div>
       <Footer />
-      <div id="contact" className="sr-only" />
     </PageTransition>
   );
 };

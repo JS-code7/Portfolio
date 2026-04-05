@@ -10,6 +10,12 @@ export interface Project {
   status: "published" | "draft";
   category: string;
   image?: string;
+  html_url?: string;
+  language?: string | null;
+  stargazers_count?: number;
+  forks_count?: number;
+  updated_at?: string;
+  updatedDaysAgo?: number;
 }
 
 export interface BlogPost {
@@ -120,12 +126,52 @@ const blogData: BlogPost[] = [
 ];
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8787";
+
+const GITHUB_USERNAME = "JS-code7";
+
+const withGithubStats = (project: Project, repos: Array<Record<string, unknown>>): Project => {
+  const matchingRepo = repos.find((repo) => {
+    const name = String(repo.name || "").toLowerCase();
+    const projectSlug = project.slug.toLowerCase();
+    return name.includes(projectSlug.split("-")[0]) || project.title.toLowerCase().includes(name);
+  });
+
+  if (!matchingRepo) {
+    return project;
+  }
+
+  const updatedAt = String(matchingRepo.updated_at || "");
+  const updatedDaysAgo = updatedAt
+    ? Math.max(0, Math.floor((Date.now() - new Date(updatedAt).getTime()) / (1000 * 60 * 60 * 24)))
+    : undefined;
+
+  return {
+    ...project,
+    html_url: String(matchingRepo.html_url || ""),
+    language: (matchingRepo.language as string | null) ?? null,
+    stargazers_count: Number(matchingRepo.stargazers_count || 0),
+    forks_count: Number(matchingRepo.forks_count || 0),
+    updated_at: updatedAt,
+    updatedDaysAgo,
+  };
+};
 
 // API functions
 export const api = {
   getProjects: async (): Promise<Project[]> => {
     await delay(600);
-    return projectsData;
+    try {
+      const response = await fetch(
+        `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`
+      );
+      if (!response.ok) return projectsData;
+      const repos = await response.json();
+      if (!Array.isArray(repos)) return projectsData;
+      return projectsData.map((project) => withGithubStats(project, repos));
+    } catch {
+      return projectsData;
+    }
   },
 
   getProjectBySlug: async (slug: string): Promise<Project | null> => {
@@ -139,10 +185,26 @@ export const api = {
   },
 
   submitContact: async (data: ContactSubmission): Promise<{ success: boolean; message: string }> => {
-    await delay(1200);
+    await delay(300);
     if (!data.name.trim() || !data.email.trim() || !data.message.trim()) {
       throw new Error("All fields are required");
     }
+
+    const response = await fetch(`${API_BASE}/api/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: data.name.trim(),
+        email: data.email.trim(),
+        message: data.message.trim(),
+      }),
+    });
+
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(payload.message || "Failed to send message. Please try again.");
+    }
+
     return { success: true, message: "Message sent successfully!" };
   },
 

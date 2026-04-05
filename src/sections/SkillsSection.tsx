@@ -4,6 +4,7 @@ import GlassCard from "@/components/GlassCard";
 import ScrollReveal from "@/components/ScrollReveal";
 import StaggerContainer, { staggerItemVariants } from "@/components/StaggerContainer";
 import { Cloud, Cpu, BarChart3, Shield, Globe, Brain } from "lucide-react";
+import { buildSkillCategories } from "@/lib/intelligence";
 
 const skills = [
   { icon: Cloud, label: "Microsoft Azure", desc: "Cloud infrastructure & services", level: 75 },
@@ -18,6 +19,21 @@ const SkillsSection = () => (
   <section id="skills" className="relative py-20 md:py-32 px-4">
     <div className="container mx-auto max-w-5xl">
       <SectionHeading title="Skills" subtitle="Technologies and domains I work with" />
+
+      <ScrollReveal className="mb-8">
+        <div className="flex flex-wrap justify-center gap-2">
+          {Object.entries(buildSkillCategories())
+            .filter(([, list]) => list.length > 0)
+            .map(([category, list]) => (
+              <span
+                key={category}
+                className="text-[10px] font-mono px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary"
+              >
+                {category.toUpperCase()}: {list.length}
+              </span>
+            ))}
+        </div>
+      </ScrollReveal>
 
       <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         {skills.map((skill) => (

@@ -78,6 +78,26 @@ const Projects = () => {
             <div className="flex justify-center py-20">
               <Loader2 className="animate-spin text-primary" size={32} />
             </div>
+          ) : filtered.length === 0 ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex flex-col items-center justify-center py-20 px-4"
+            >
+              <div className="text-center max-w-md">
+                <p className="text-3xl mb-2 text-muted-foreground">No missions found</p>
+                <p className="text-sm text-muted-foreground/70 mb-6">
+                  Try selecting a different category or{" "}
+                  <motion.button
+                    whileHover={{ textDecoration: "underline" }}
+                    onClick={() => setFilter("All")}
+                    className="text-primary hover:text-primary/80 transition-colors font-semibold"
+                  >
+                    view all projects
+                  </motion.button>
+                </p>
+              </div>
+            </motion.div>
           ) : (
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((project) => (

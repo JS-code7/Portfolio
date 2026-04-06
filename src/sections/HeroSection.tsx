@@ -6,16 +6,26 @@ import FloatingIcons from "@/components/FloatingIcons";
 import TypewriterText from "@/components/TypewriterText";
 import MagneticButton from "@/components/MagneticButton";
 import ScrollReveal from "@/components/ScrollReveal";
+import FloatingOrbs from "@/components/FloatingOrbs";
 import { logEvent } from "@/lib/logger";
 
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 pt-16 overflow-hidden">
       <FloatingIcons />
+      <FloatingOrbs count={3} size="lg" />
 
-      {/* Gradient orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse-glow pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-glow-purple/5 rounded-full blur-3xl animate-pulse-glow pointer-events-none" style={{ animationDelay: "1.5s" }} />
+      {/* Enhanced gradient orbs */}
+      <motion.div
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none"
+        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-glow-purple/5 rounded-full blur-3xl pointer-events-none"
+        animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.5, 0.3] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      />
 
       <div className="container mx-auto text-center z-10 relative">
         <ScrollReveal direction="down" distance={30} delay={0.1}>
@@ -77,9 +87,12 @@ const HeroSection = () => {
               transition={{ delay: 0.9 + i * 0.1, type: "spring" }}
             >
               {i > 0 && <span className="w-1.5 h-1.5 rounded-full bg-primary/50" />}
-              <span className="px-3 py-1 rounded-full bg-secondary/50 border border-border/50 hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 cursor-default">
+              <motion.span
+                className="px-3 py-1 rounded-full bg-secondary/50 border border-border/50 hover:border-primary/50 hover:bg-primary/10 transition-all duration-300 cursor-default"
+                whileHover={{ scale: 1.05 }}
+              >
                 {item}
-              </span>
+              </motion.span>
             </motion.span>
           ))}
         </motion.div>
@@ -105,7 +118,7 @@ const HeroSection = () => {
               <Button
                 onClick={() => logEvent("click", "hero_view_projects")}
                 size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 font-display gap-2 px-8 relative overflow-hidden group"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 font-display gap-2 px-8 relative overflow-hidden group hover:shadow-lg hover:shadow-primary/50"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                 <FolderOpen size={16} /> View Projects
@@ -118,7 +131,7 @@ const HeroSection = () => {
                 onClick={() => logEvent("click", "hero_explore_experience")}
                 variant="outline"
                 size="lg"
-                className="border-primary/30 text-foreground hover:bg-primary/10 font-display gap-2 px-8 relative overflow-hidden group"
+                className="border-primary/30 text-foreground hover:bg-primary/10 hover:border-primary/60 font-display gap-2 px-8 relative overflow-hidden group hover:shadow-lg hover:shadow-primary/30"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                 <Briefcase size={16} /> Explore Experience
@@ -131,7 +144,7 @@ const HeroSection = () => {
                 onClick={() => logEvent("click", "hero_contact_click")}
                 variant="secondary"
                 size="lg"
-                className="border border-primary/20 bg-secondary/70 text-foreground hover:bg-primary/10 hover:text-primary font-display gap-2 px-8"
+                className="border border-primary/20 bg-secondary/70 text-foreground hover:bg-primary/10 hover:text-primary hover:border-primary/50 font-display gap-2 px-8 hover:shadow-lg hover:shadow-primary/20"
               >
                 <Mail size={16} /> Contact Me
               </Button>
@@ -143,7 +156,7 @@ const HeroSection = () => {
                 onClick={() => logEvent("click", "hero_resume_download")}
                 variant="ghost"
                 size="lg"
-                className="text-muted-foreground hover:text-primary font-display gap-2 px-8 relative overflow-hidden group"
+                className="text-muted-foreground hover:text-primary font-display gap-2 px-8 relative overflow-hidden group hover:shadow-lg hover:shadow-primary/20"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                 <Download size={16} /> Download Resume
@@ -165,7 +178,9 @@ const HeroSection = () => {
             className="flex flex-col items-center gap-2"
           >
             <span className="text-[10px] font-mono text-muted-foreground/50 tracking-widest uppercase">Scroll</span>
-            <ArrowDown size={16} className="text-primary/40" />
+            <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 2, repeat: Infinity }}>
+              <ArrowDown size={16} className="text-primary" />
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>

@@ -155,3 +155,40 @@
   background: hsl(187 100% 50% / 0.3);
   color: hsl(210 40% 98%);
 }
+
+/* Gaming button glow effects */
+button:focus-visible {
+  animation: glow-focus 0.4s ease-out;
+}
+
+@keyframes glow-focus {
+  from {
+    box-shadow: 0 0 8px hsl(187 100% 50% / 0.3), 0 0 16px hsl(187 100% 50% / 0.2);
+  }
+  to {
+    box-shadow: 0 0 20px hsl(187 100% 50% / 0.6), 0 0 30px hsl(187 100% 50% / 0.3);
+  }
+}
+
+/* Smooth interactions */
+a[href] {
+  @apply transition-colors duration-300;
+}
+
+/* Focus-within for containers */
+*:focus-within {
+  @apply transition-shadow duration-300;
+}
+
+/* Link styling improvement */
+a:not([class*="button"]):not([class*="nav"]) {
+  @apply relative text-primary hover:text-primary/80 transition-colors;
+}
+
+/* Form focus states */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  @apply outline-none ring-2 ring-primary/40 ring-offset-2 ring-offset-background;
+}
+

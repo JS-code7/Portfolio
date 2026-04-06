@@ -18,12 +18,15 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ["react", "react-dom", "react-router-dom"],
-          motion: ["framer-motion"],
-          three: ["three", "@react-three/fiber", "@react-three/drei"],
-          charts: ["recharts"],
-          ui: ["@radix-ui/react-dialog", "@radix-ui/react-tooltip", "@radix-ui/react-tabs"],
+        manualChunks: (id) => {
+          if (id.includes("node_modules")) {
+            if (id.includes("react")) return "vendor";
+            if (id.includes("framer-motion")) return "motion";
+            if (id.includes("three")) return "three";
+            if (id.includes("recharts")) return "charts";
+            if (id.includes("@radix-ui")) return "ui";
+            return "vendor";
+          }
         },
       },
     },

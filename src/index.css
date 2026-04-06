@@ -156,36 +156,33 @@
   color: hsl(210 40% 98%);
 }
 
-/* Remove button:focus-visible default, using custom gaming focus instead */
-/* Glow effect handled by focus-visible rule above */
-
-
-/* Link styling - clean, no underlines */
-a {
-  text-decoration: none;
-  color: inherit;
+/* Gaming button glow effects */
+button:focus-visible {
+  animation: glow-focus 0.4s ease-out;
 }
 
-a:not([class*="button"]):not([class*="nav"]):not([class*="disabled"]) {
-  @apply relative transition-all duration-300;
+@keyframes glow-focus {
+  from {
+    box-shadow: 0 0 8px hsl(187 100% 50% / 0.3), 0 0 16px hsl(187 100% 50% / 0.2);
+  }
+  to {
+    box-shadow: 0 0 20px hsl(187 100% 50% / 0.6), 0 0 30px hsl(187 100% 50% / 0.3);
+  }
 }
 
-/* Remove blue focus outline globally */
-*:focus {
-  outline: none;
+/* Smooth interactions */
+a[href] {
+  @apply transition-colors duration-300;
 }
 
-a:focus,
-button:focus,
-[role="button"]:focus {
-  outline: none;
+/* Focus-within for containers */
+*:focus-within {
+  @apply transition-shadow duration-300;
 }
 
-/* Custom gaming-style focus - accessible cyan glow */
-a:focus-visible:not([class*="button"]):not([class*="nav"]),
-*:focus-visible {
-  border-radius: 0.5rem;
-  box-shadow: 0 0 12px hsl(187 100% 50% / 0.5), inset 0 0 8px hsl(187 100% 50% / 0.1);
+/* Link styling improvement */
+a:not([class*="button"]):not([class*="nav"]) {
+  @apply relative text-primary hover:text-primary/80 transition-colors;
 }
 
 /* Form focus states */
@@ -193,20 +190,5 @@ input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
   @apply outline-none ring-2 ring-primary/40 ring-offset-2 ring-offset-background;
-}
-
-/* Remove overflow-x for full-width layouts */
-html, body {
-  overflow-x: hidden;
-}
-
-/* Prevent link color bleeding */
-a[href]:not(.no-link-style) {
-  color: inherit;
-}
-
-/* Remove default link underlines */
-a[href]:not([class*="button"]):not([class*="nav"]):not([class*="link-style"]) {
-  @apply no-underline;
 }
 

@@ -98,21 +98,6 @@ const ProjectsSection = () => {
           <GlassCard tilt={false} className="p-6 text-center">
             <p className="text-sm text-destructive">{error}</p>
           </GlassCard>
-        ) : filtered.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col items-center justify-center py-12"
-          >
-            <p className="text-lg text-muted-foreground mb-3">No projects in this category</p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              onClick={() => setFilter("All")}
-              className="text-sm text-primary hover:text-primary/80 transition-colors font-semibold"
-            >
-              View all projects →
-            </motion.button>
-          </motion.div>
         ) : (
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             <AnimatePresence mode="popLayout">

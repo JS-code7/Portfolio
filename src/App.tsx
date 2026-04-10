@@ -4,7 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AnimatePresence } from "framer-motion";
-import GlowCursor from "@/components/GlowCursor";
+import CursorGlow from "@/components/mission/CursorGlow";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
@@ -50,7 +50,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <GlowCursor />
+      <CursorGlow />
       <BrowserRouter>
         <AnimatedRoutes />
         <AIChatWidget />

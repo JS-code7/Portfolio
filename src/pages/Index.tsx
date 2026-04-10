@@ -1,21 +1,17 @@
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 import SplashScreen from "@/components/SplashScreen";
-import ParticleBackground from "@/components/ParticleBackground";
 import Navbar from "@/components/Navbar";
-import ScrollProgress from "@/components/ScrollProgress";
-import AnimatedVectorBackground from "@/components/AnimatedVectorBackground";
-import HeroSection from "@/sections/HeroSection";
-import AboutSection from "@/sections/AboutSection";
-import SkillsSection from "@/sections/SkillsSection";
-import ProjectsSection from "@/sections/ProjectsSection";
-import ExperienceSection from "@/sections/ExperienceSection";
-import EducationSection from "@/sections/EducationSection";
-import CertificationsSection from "@/sections/CertificationsSection";
-import ContactSection from "@/sections/ContactSection";
-import LinkedInSection from "@/sections/LinkedInSection";
 import Footer from "@/components/Footer";
-import FloatingShapes from "@/components/FloatingShapes";
-import SectionDivider from "@/components/SectionDivider";
+import GridOverlay from "@/components/mission/GridOverlay";
+import ScrollProgressBar from "@/components/mission/ScrollProgressBar";
+import MissionControlHero from "@/sections/MissionControlHero";
+import StoryChapterSection from "@/sections/StoryChapterSection";
+import ProjectsSection from "@/sections/ProjectsSection";
+import SkillsSection from "@/sections/SkillsSection";
+import InteractiveLab from "@/sections/InteractiveLab";
+import BrainMap from "@/sections/BrainMap";
+import EvolutionTimeline from "@/sections/EvolutionTimeline";
+import ContactSection from "@/sections/ContactSection";
 
 const Index = () => {
   const [splashDone, setSplashDone] = useState(false);
@@ -27,26 +23,18 @@ const Index = () => {
   return (
     <>
       {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
-      <ParticleBackground />
+      <GridOverlay />
       {splashDone && (
-        <div className="relative z-10">
-          <AnimatedVectorBackground />
-          <FloatingShapes />
+        <div className="relative z-20">
           <Navbar />
-          <ScrollProgress />
-          <HeroSection />
-          <SectionDivider />
-          <AboutSection />
-          <SectionDivider />
-          <SkillsSection />
-          <SectionDivider />
+          <ScrollProgressBar />
+          <MissionControlHero />
+          <StoryChapterSection />
           <ProjectsSection />
-          <SectionDivider />
-          <LinkedInSection />
-          <SectionDivider />
-          <ExperienceSection />
-          <EducationSection />
-          <CertificationsSection />
+          <SkillsSection />
+          <InteractiveLab />
+          <BrainMap />
+          <EvolutionTimeline />
           <ContactSection />
           <Footer />
         </div>

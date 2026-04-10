@@ -180,9 +180,9 @@ a[href] {
   @apply transition-shadow duration-300;
 }
 
-/* Link styling improvement */
-a:not([class*="button"]):not([class*="nav"]) {
-  @apply relative text-primary hover:text-primary/80 transition-colors;
+/* Remove aggressive global link recoloring to avoid unexpected blue/underlined artifacts */
+a:not(.unstyled-link) {
+  text-decoration-thickness: from-font;
 }
 
 /* Form focus states */
@@ -192,3 +192,12 @@ select:focus-visible {
   @apply outline-none ring-2 ring-primary/40 ring-offset-2 ring-offset-background;
 }
 
+a:focus-visible,
+button:focus-visible {
+  @apply outline-none ring-2 ring-primary/45 ring-offset-2 ring-offset-background;
+}
+
+.noise-layer {
+  background-image: radial-gradient(hsl(var(--foreground) / 0.06) 0.6px, transparent 0.6px);
+  background-size: 2.5px 2.5px;
+}

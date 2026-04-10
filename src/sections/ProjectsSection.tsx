@@ -1,252 +1,199 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Loader2 } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ExternalLink, Loader2, X } from "lucide-react";
 import { Link } from "react-router-dom";
-import SectionHeading from "@/components/SectionHeading";
-import GlassCard from "@/components/GlassCard";
-import ScrollReveal from "@/components/ScrollReveal";
-import StaggerContainer, { staggerItemVariants } from "@/components/StaggerContainer";
-import { Button } from "@/components/ui/button";
 import { api, type Project } from "@/lib/api";
-import { rankFeaturedProjects, getMostActiveTech } from "@/lib/intelligence";
-import { logEvent } from "@/lib/logger";
+import { rankFeaturedProjects } from "@/lib/intelligence";
+import { Button } from "@/components/ui/button";
+import SectionHeader from "@/components/mission/SectionHeader";
+import GlassPanel from "@/components/mission/GlassPanel";
+import ProjectCard from "@/components/mission/ProjectCard";
+
+const HIGHLIGHT_FALLBACK = "Detailed implementation highlights are available in the mission archive.";
 
 const ProjectsSection = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [filter, setFilter] = useState("All");
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
 
   useEffect(() => {
-    api.getProjects()
+    let mounted = true;
+
+    api
+      .getProjects()
       .then((data) => {
-        setProjects(data);
+        if (!mounted) return;
+        setProjects(data.filter((project) => project.status !== "draft"));
       })
       .catch(() => {
-        setError("Unable to load projects right now.");
+        if (!mounted) return;
+        setError("Active modules are currently offline. Please retry shortly.");
       })
       .finally(() => {
+        if (!mounted) return;
         setLoading(false);
       });
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
-  const categories = ["All", ...new Set(projects.map((p) => p.category))];
-  const filtered = filter === "All" ? projects : projects.filter((p) => p.category === filter);
-  const featured = rankFeaturedProjects(projects);
-  const activeTech = getMostActiveTech(projects);
+  const categories = useMemo(() => ["All", ...new Set(projects.map((project) => project.category))], [projects]);
+  const filteredProjects = useMemo(
+    () => (filter === "All" ? projects : projects.filter((project) => project.category === filter)),
+    [filter, projects],
+  );
+
+  const featured = useMemo(() => rankFeaturedProjects(projects), [projects]);
+  const getHighlight = (project: Project, index: number) =>
+    project.highlights[index] || project.highlights[0] || HIGHLIGHT_FALLBACK;
 
   return (
-    <section id="projects" className="relative py-20 md:py-32 px-4">
-      <div className="container mx-auto max-w-5xl">
-        <SectionHeading title="Projects" subtitle="A selection of things I've built" />
+    <section id="projects" className="relative px-4 py-20 md:py-28">
+      <div className="container mx-auto max-w-6xl">
+        <SectionHeader
+          eyebrow="Active Modules"
+          title="Mission-ready projects with clear engineering outcomes"
+          subtitle="Every module is documented as a case narrative: problem, approach, outcome, and measurable impact."
+        />
 
         {!loading && featured.length > 0 && (
-          <ScrollReveal className="mb-8">
-            <div className="flex flex-wrap gap-2 justify-center">
-              {featured.map((project) => (
-                <span
-                  key={project.id}
-                  className="text-[10px] font-mono px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/30"
-                >
-                  Featured: {project.title}
-                </span>
-              ))}
-            </div>
-          </ScrollReveal>
+          <div className="mb-6 flex flex-wrap justify-center gap-2">
+            {featured.map((project) => (
+              <span
+                key={project.id}
+                className="rounded-full border border-primary/35 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-primary/90"
+              >
+                Featured · {project.title}
+              </span>
+            ))}
+          </div>
         )}
 
-        {!loading && activeTech.length > 0 && (
-          <ScrollReveal className="mb-8">
-            <div className="flex flex-wrap gap-2 justify-center">
-              {activeTech.map((item) => (
-                <span
-                  key={item.language}
-                  className="text-[10px] font-mono px-3 py-1 rounded-full bg-secondary/60 text-muted-foreground border border-border/60"
+        <GlassPanel className="mb-6 p-2">
+          <div className="flex flex-wrap gap-2">
+            {categories.map((category) => {
+              const active = filter === category;
+              return (
+                <button
+                  type="button"
+                  key={category}
+                  onClick={() => setFilter(category)}
+                  className={`rounded-xl px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-all ${
+                    active
+                      ? "bg-primary text-primary-foreground shadow-[0_0_20px_-8px_hsl(187_100%_50%/0.85)]"
+                      : "bg-secondary/70 text-muted-foreground hover:text-foreground"
+                  }`}
                 >
-                  {item.language}: {item.count}
-                </span>
-              ))}
-            </div>
-          </ScrollReveal>
-        )}
-
-        {/* Category filters */}
-        <ScrollReveal className="flex flex-wrap justify-center gap-2 mb-8">
-          {categories.map((cat) => (
-            <motion.button
-              key={cat}
-              onClick={() => setFilter(cat)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`px-4 py-1.5 rounded-full text-xs font-mono transition-all duration-300 ${
-                filter === cat
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary/50 text-muted-foreground hover:text-foreground border border-border/50 hover:border-primary/30"
-              }`}
-            >
-              {cat}
-            </motion.button>
-          ))}
-        </ScrollReveal>
+                  {category}
+                </button>
+              );
+            })}
+          </div>
+        </GlassPanel>
 
         {loading ? (
-          <div className="flex justify-center py-20">
-            <Loader2 className="animate-spin text-primary" size={32} />
+          <div className="flex justify-center py-16">
+            <Loader2 className="animate-spin text-primary" />
           </div>
         ) : error ? (
-          <GlassCard tilt={false} className="p-6 text-center">
-            <p className="text-sm text-destructive">{error}</p>
-          </GlassCard>
+          <GlassPanel className="p-5 text-center text-sm text-destructive">{error}</GlassPanel>
+        ) : filteredProjects.length === 0 ? (
+          <GlassPanel className="p-5 text-center text-sm text-muted-foreground">
+            No modules found for this category yet.
+          </GlassPanel>
         ) : (
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            <AnimatePresence mode="popLayout">
-              {filtered.map((project) => (
-                <motion.div
-                  key={project.id}
-                  variants={staggerItemVariants}
-                  layout
-                  exit={{ opacity: 0, scale: 0.8 }}
-                >
-                  <GlassCard delay={0} className="p-6 cursor-pointer group h-full">
-                    <div onClick={() => {
-                      logEvent("project", "project_card_open", { slug: project.slug, title: project.title });
-                      setSelectedProject(project);
-                    }} className="h-full flex flex-col">
-                      {/* Category badge */}
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary/80 self-start mb-3">
-                        {project.category}
-                      </span>
-                      <h3 className="font-display font-semibold text-foreground mb-2 group-hover:text-primary transition-colors text-sm md:text-base">
-                        {project.title}
-                      </h3>
-                      <p className="text-xs text-muted-foreground mb-4 line-clamp-2 flex-1">
-                        {project.description}
-                      </p>
-                       <div className="flex flex-wrap gap-1.5 mb-3">
-                         {project.tech.map((t) => (
-                           <span
-                             key={t}
-                            className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-secondary text-muted-foreground"
-                          >
-                            {t}
-                           </span>
-                         ))}
-                       </div>
-                       <div className="flex gap-3 text-[10px] font-mono text-muted-foreground">
-                         {project.language && <span>{project.language}</span>}
-                         {typeof project.stargazers_count === "number" && <span>★ {project.stargazers_count}</span>}
-                         {typeof project.forks_count === "number" && <span>⑂ {project.forks_count}</span>}
-                       </div>
-                     </div>
-                   </GlassCard>
-                 </motion.div>
-              ))}
-            </AnimatePresence>
-          </StaggerContainer>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {filteredProjects.map((project, index) => (
+              <ProjectCard key={project.id} project={project} index={index} onSelect={setActiveProject} />
+            ))}
+          </div>
         )}
       </div>
 
-      {/* Modal */}
       <AnimatePresence>
-        {selectedProject && (
+        {activeProject && (
           <motion.div
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-background/75 p-4 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-md"
-            onClick={() => setSelectedProject(null)}
+            onClick={() => setActiveProject(null)}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 30 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 30 }}
-              transition={{ type: "spring", damping: 25 }}
-              onClick={(e) => e.stopPropagation()}
-              className="glass-strong glow-border rounded-2xl p-6 md:p-8 max-w-lg w-full"
+              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.98 }}
+              transition={{ duration: 0.25 }}
+              className="w-full max-w-2xl"
+              onClick={(event) => event.stopPropagation()}
             >
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary/80">
-                    {selectedProject.category}
-                  </span>
-                  <h3 className="font-display font-bold text-lg text-foreground mt-2">
-                    {selectedProject.title}
-                  </h3>
+              <GlassPanel className="p-5 md:p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-primary">{activeProject.category}</p>
+                    <h3 className="mt-1 text-xl font-display font-bold text-foreground">{activeProject.title}</h3>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setActiveProject(null)}
+                    className="rounded-md border border-white/15 p-1 text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    <X size={16} />
+                  </button>
                 </div>
-                <button
-                  onClick={() => setSelectedProject(null)}
-                  className="text-muted-foreground hover:text-foreground transition-colors shrink-0 hover:rotate-90 duration-300"
-                >
-                  <X size={18} />
-                </button>
-              </div>
 
-              <p className="text-sm text-muted-foreground mb-6">
-                {selectedProject.description}
-              </p>
-
-              <div className="mb-6">
-                <h4 className="text-xs font-mono text-primary/70 uppercase tracking-wider mb-2">Tech Stack</h4>
-                <div className="flex flex-wrap gap-2">
-                  {selectedProject.tech.map((t, i) => (
-                    <motion.span
-                      key={t}
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: i * 0.05 }}
-                      className="text-xs font-mono px-3 py-1 rounded-full bg-primary/10 text-primary"
-                    >
-                      {t}
-                    </motion.span>
-                  ))}
+                <div className="mt-5 grid gap-3 text-sm md:grid-cols-2">
+                  <div className="rounded-xl border border-white/10 bg-secondary/55 p-3">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-primary">Problem</p>
+                    <p className="mt-1 text-muted-foreground">{activeProject.description}</p>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-secondary/55 p-3">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-primary">Approach</p>
+                    <p className="mt-1 text-muted-foreground">
+                      {activeProject.approach || `Built with ${activeProject.tech.join(", ")} and iterative testing cycles.`}
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-secondary/55 p-3">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-primary">Outcome</p>
+                    <p className="mt-1 text-muted-foreground">{getHighlight(activeProject, 0)}</p>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-secondary/55 p-3">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-primary">Impact</p>
+                    <p className="mt-1 text-muted-foreground">{activeProject.impact || getHighlight(activeProject, 1)}</p>
+                  </div>
                 </div>
-              </div>
 
-              <div className="mb-6">
-                <h4 className="text-xs font-mono text-primary/70 uppercase tracking-wider mb-2">Highlights</h4>
-                <ul className="space-y-2">
-                  {selectedProject.highlights.map((h, i) => (
-                    <motion.li
-                      key={h}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + i * 0.08 }}
-                      className="text-sm text-muted-foreground flex items-center gap-2"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse-glow" />
-                      {h}
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
+                <div className="mt-4 grid gap-3 text-xs text-muted-foreground md:grid-cols-2">
+                  <p>
+                    <span className="font-mono text-primary">What I learned:</span>{" "}
+                    {activeProject.learned || "Clear instrumentation and measurable feedback loops improve every release."}
+                  </p>
+                  <p>
+                    <span className="font-mono text-primary">What I’d improve:</span>{" "}
+                    {activeProject.improve || "Expand observability and stress-test edge cases earlier in the cycle."}
+                  </p>
+                </div>
 
-               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                 <Button
-                   asChild
-                   variant="outline"
-                   size="sm"
-                   className="border-primary/30 text-foreground hover:bg-primary/10 gap-2 w-full group"
-                 >
-                   <Link to={`/projects/${selectedProject.slug}`}>
-                     <ExternalLink size={14} className="group-hover:rotate-12 transition-transform" /> View Project
-                   </Link>
-                 </Button>
-                 {selectedProject.html_url && (
-                   <Button
-                     asChild
-                     size="sm"
-                     className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2 w-full"
-                   >
-                     <a href={selectedProject.html_url} target="_blank" rel="noopener noreferrer">
-                       Open Repo
-                     </a>
-                   </Button>
-                 )}
-               </div>
-             </motion.div>
-           </motion.div>
-         )}
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <Button asChild variant="outline" className="border-primary/35">
+                    <Link to={`/projects/${activeProject.slug}`}>Open detailed case</Link>
+                  </Button>
+                  {activeProject.html_url && (
+                    <Button asChild>
+                      <a href={activeProject.html_url} target="_blank" rel="noopener noreferrer">
+                        Open repository <ExternalLink size={13} />
+                      </a>
+                    </Button>
+                  )}
+                </div>
+              </GlassPanel>
+            </motion.div>
+          </motion.div>
+        )}
       </AnimatePresence>
     </section>
   );

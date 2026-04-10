@@ -93,6 +93,7 @@ const BrainMap = () => {
                   onFocus={() => setActiveNode(node.id)}
                   onBlur={() => setActiveNode(null)}
                   className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] transition-all duration-300 focus-visible:outline-none"
+                  aria-label={`${node.label} node, ${node.links.length} connections`}
                   style={{
                     left: `${node.x}%`,
                     top: `${node.y}%`,

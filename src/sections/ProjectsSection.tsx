@@ -9,6 +9,8 @@ import SectionHeader from "@/components/mission/SectionHeader";
 import GlassPanel from "@/components/mission/GlassPanel";
 import ProjectCard from "@/components/mission/ProjectCard";
 
+const HIGHLIGHT_FALLBACK = "Detailed implementation highlights are available in the mission archive.";
+
 const ProjectsSection = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
@@ -46,6 +48,8 @@ const ProjectsSection = () => {
   );
 
   const featured = useMemo(() => rankFeaturedProjects(projects), [projects]);
+  const getHighlight = (project: Project, index: number) =>
+    project.highlights[index] || project.highlights[0] || HIGHLIGHT_FALLBACK;
 
   return (
     <section id="projects" className="relative px-4 py-20 md:py-28">
@@ -153,11 +157,11 @@ const ProjectsSection = () => {
                   </div>
                   <div className="rounded-xl border border-white/10 bg-secondary/55 p-3">
                     <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-primary">Outcome</p>
-                    <p className="mt-1 text-muted-foreground">{activeProject.highlights[0]}</p>
+                    <p className="mt-1 text-muted-foreground">{getHighlight(activeProject, 0)}</p>
                   </div>
                   <div className="rounded-xl border border-white/10 bg-secondary/55 p-3">
                     <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-primary">Impact</p>
-                    <p className="mt-1 text-muted-foreground">{activeProject.highlights[1] || activeProject.highlights[0]}</p>
+                    <p className="mt-1 text-muted-foreground">{getHighlight(activeProject, 1)}</p>
                   </div>
                 </div>
 

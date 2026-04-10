@@ -60,8 +60,12 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
     font-family: 'Inter', sans-serif;
+    background:
+      radial-gradient(circle at top, hsl(var(--glow-cyan) / 0.1), transparent 30%),
+      radial-gradient(circle at 85% 12%, hsl(var(--glow-purple) / 0.08), transparent 24%),
+      linear-gradient(180deg, hsl(var(--background)) 0%, hsl(222 47% 3%) 100%);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -133,6 +137,22 @@
     border: 1px solid hsl(187 100% 50% / 0.15);
     box-shadow: 0 0 20px -5px hsl(187 100% 50% / 0.1), inset 0 1px 0 hsl(187 100% 50% / 0.05);
   }
+
+  .noise-layer {
+    position: relative;
+  }
+
+  .noise-layer::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: linear-gradient(rgba(255,255,255,0.45) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.45) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mix-blend-mode: overlay;
+    z-index: 0;
+  }
 }
 
 /* Scrollbar */
@@ -157,8 +177,10 @@
 }
 
 /* Gaming button glow effects */
+a:focus-visible,
 button:focus-visible {
   animation: glow-focus 0.4s ease-out;
+  outline: none;
 }
 
 @keyframes glow-focus {
@@ -172,7 +194,7 @@ button:focus-visible {
 
 /* Smooth interactions */
 a[href] {
-  @apply transition-colors duration-300;
+  @apply transition-colors duration-300 no-underline;
 }
 
 /* Focus-within for containers */
@@ -192,12 +214,6 @@ select:focus-visible {
   @apply outline-none ring-2 ring-primary/40 ring-offset-2 ring-offset-background;
 }
 
-a:focus-visible,
-button:focus-visible {
-  @apply outline-none ring-2 ring-primary/45 ring-offset-2 ring-offset-background;
-}
-
-.noise-layer {
-  background-image: radial-gradient(hsl(var(--foreground) / 0.06) 0.6px, transparent 0.6px);
-  background-size: 2.5px 2.5px;
+html {
+  scroll-behavior: smooth;
 }

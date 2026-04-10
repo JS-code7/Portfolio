@@ -1,17 +1,19 @@
 import { useCallback, useState } from "react";
 import SplashScreen from "@/components/SplashScreen";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import GridOverlay from "@/components/mission/GridOverlay";
-import ScrollProgressBar from "@/components/mission/ScrollProgressBar";
-import MissionControlHero from "@/sections/MissionControlHero";
-import StoryChapterSection from "@/sections/StoryChapterSection";
-import ProjectsSection from "@/sections/ProjectsSection";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
+import GridOverlay from "@/components/GridOverlay";
+import MissionControlHero from "@/components/MissionControlHero";
+import StoryChapterSection from "@/components/StoryChapterSection";
+import InteractiveLab from "@/components/InteractiveLab";
+import BrainMap from "@/components/BrainMap";
+import EvolutionTimeline from "@/components/EvolutionTimeline";
 import SkillsSection from "@/sections/SkillsSection";
-import InteractiveLab from "@/sections/InteractiveLab";
-import BrainMap from "@/sections/BrainMap";
-import EvolutionTimeline from "@/sections/EvolutionTimeline";
+import ProjectsSection from "@/sections/ProjectsSection";
 import ContactSection from "@/sections/ContactSection";
+import Footer from "@/components/Footer";
+import SectionDivider from "@/components/SectionDivider";
+import CursorGlow from "@/components/CursorGlow";
 
 const Index = () => {
   const [splashDone, setSplashDone] = useState(false);
@@ -23,18 +25,26 @@ const Index = () => {
   return (
     <>
       {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
+      <CursorGlow />
       <GridOverlay />
       {splashDone && (
-        <div className="relative z-20">
+        <div className="noise-layer relative z-10">
           <Navbar />
           <ScrollProgressBar />
           <MissionControlHero />
+          <SectionDivider />
           <StoryChapterSection />
+          <SectionDivider />
           <ProjectsSection />
-          <SkillsSection />
+          <SectionDivider />
           <InteractiveLab />
+          <SectionDivider />
           <BrainMap />
+          <SectionDivider />
           <EvolutionTimeline />
+          <SectionDivider />
+          <SkillsSection />
+          <SectionDivider />
           <ContactSection />
           <Footer />
         </div>

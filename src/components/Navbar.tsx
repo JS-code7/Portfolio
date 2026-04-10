@@ -1,92 +1,68 @@
-import { useState, useRef } from "react";
+import { useMemo, useState } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Projects", href: "/projects" },
-  { label: "Skills Galaxy", href: "/skills-galaxy" },
-  { label: "Experience", href: "/experience" },
-  { label: "Blog", href: "/blog" },
-  { label: "Analytics", href: "/analytics" },
-  { label: "Contact", href: "/contact" },
+  { label: "Boot", href: "/#boot" },
+  { label: "Story", href: "/#story" },
+  { label: "Lab", href: "/#lab" },
+  { label: "Brain Map", href: "/#brain-map" },
+  { label: "Timeline", href: "/#timeline" },
+  { label: "Contact", href: "/#contact" },
+  { label: "Archive", href: "/projects", archive: true },
 ];
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const location = useLocation();
-  const navRef = useRef<HTMLDivElement>(null);
+  const activeHref = useMemo(() => {
+    if (location.pathname !== "/") {
+      return location.pathname;
+    }
+
+    return location.hash || "/#boot";
+  }, [location.hash, location.pathname]);
 
   return (
     <motion.nav
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.1, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="fixed top-0 left-0 right-0 z-40 glass-strong scanline"
+      className="fixed left-0 right-0 top-0 z-40 border-b border-white/8 bg-[hsl(var(--background)/0.75)] backdrop-blur-xl"
     >
-      {/* Animated gradient line background */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-50" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent opacity-70" />
 
       <div className="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <Link to="/" className="group">
           <motion.span
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="text-xl font-display font-bold text-gradient-cyan inline-block"
+            className="inline-flex items-center gap-2 text-sm font-display font-semibold tracking-[0.28em] text-foreground"
           >
-            JS
+            <span className="rounded-full border border-primary/25 bg-primary/10 px-2 py-1 text-primary">JS</span>
+            <span className="hidden sm:inline">MISSION DECK</span>
           </motion.span>
         </Link>
 
-        {/* Desktop */}
         <LayoutGroup id="navbar">
-          <div className="hidden md:flex items-center gap-1 relative" ref={navRef}>
+          <div className="hidden items-center gap-2 md:flex">
             {navItems.map((item, index) => (
               <Link
                 key={item.label}
                 to={item.href}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                className={`relative text-sm px-3 py-1.5 rounded-lg transition-colors duration-200 ${
-                  location.pathname === item.href
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-primary"
+                className={`relative rounded-full px-3.5 py-2 text-[11px] font-mono uppercase tracking-[0.22em] transition-all duration-300 ${
+                  activeHref === item.href
+                    ? "border border-primary/20 bg-primary/10 text-primary shadow-[0_0_18px_rgba(34,211,238,0.12)]"
+                    : "border border-transparent text-muted-foreground hover:border-white/10 hover:bg-white/5 hover:text-foreground"
                 }`}
               >
                 {item.label}
-                {location.pathname === item.href && (
+                {activeHref === item.href && (
                   <motion.div
                     layoutId="nav-indicator"
-                    className="absolute inset-0 bg-primary/10 rounded-lg -z-10"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                {location.pathname === item.href && (
-                  <>
-                    <motion.div
-                      layoutId="nav-underline"
-                      className="absolute -bottom-0.5 left-1/4 right-1/4 h-0.5 bg-primary rounded-full shadow-lg shadow-primary/50"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                    {/* Glow effect for active line */}
-                    <motion.div
-                      layoutId="nav-glow"
-                      className="absolute -bottom-1 left-1/4 right-1/4 h-1 bg-primary/30 rounded-full blur-md"
-                      animate={{ opacity: [0.5, 1, 0.5] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    />
-                  </>
-                )}
-                {hoveredIndex === index && location.pathname !== item.href && (
-                  <motion.div
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    exit={{ scaleX: 0 }}
-                    className="absolute -bottom-0.5 left-1/4 right-1/4 h-0.5 bg-primary/30 rounded-full origin-left"
-                    transition={{ duration: 0.3 }}
+                    className="absolute inset-0 -z-10 rounded-full bg-primary/10"
+                    transition={{ type: "spring", bounce: 0.25, duration: 0.55 }}
                   />
                 )}
               </Link>
@@ -94,10 +70,9 @@ const Navbar = () => {
           </div>
         </LayoutGroup>
 
-        {/* Mobile toggle */}
         <motion.button
           whileTap={{ scale: 0.9 }}
-          className="md:hidden text-foreground p-2"
+          className="rounded-full border border-white/10 bg-white/5 p-2 text-foreground md:hidden"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
           <AnimatePresence mode="wait">
@@ -114,30 +89,29 @@ const Navbar = () => {
         </motion.button>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-strong border-t border-border overflow-hidden"
+            className="overflow-hidden border-t border-white/8 bg-[hsl(var(--background)/0.92)] md:hidden"
           >
-            <div className="container mx-auto px-4 py-4 flex flex-col gap-1">
-              {navItems.map((item, i) => (
+            <div className="container mx-auto flex flex-col gap-2 px-4 py-4">
+              {navItems.map((item) => (
                 <motion.div
                   key={item.label}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
+                  transition={{ duration: 0.25 }}
                 >
                   <Link
                     to={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`block text-sm py-2.5 px-3 rounded-lg transition-colors ${
-                      location.pathname === item.href
-                        ? "text-primary bg-primary/10 border-l-2 border-primary"
-                        : "text-muted-foreground hover:text-primary hover:bg-primary/5"
+                    className={`block rounded-2xl px-4 py-3 text-sm transition-all ${
+                      activeHref === item.href
+                        ? "border border-primary/20 bg-primary/10 text-primary"
+                        : "border border-white/8 bg-white/5 text-muted-foreground hover:border-primary/20 hover:bg-primary/10 hover:text-foreground"
                     }`}
                   >
                     {item.label}

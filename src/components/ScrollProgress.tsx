@@ -2,38 +2,15 @@ import { motion, useScroll, useSpring } from "framer-motion";
 
 const ScrollProgress = () => {
   const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const scaleX = useSpring(scrollYProgress, { stiffness: 110, damping: 28, restDelta: 0.001 });
 
   return (
-    <>
+    <div className="fixed top-16 left-0 right-0 z-50 h-1 origin-left overflow-hidden bg-white/5 backdrop-blur-sm">
       <motion.div
-        className="fixed top-16 left-0 right-0 h-[2px] z-50 origin-left backdrop-blur-sm"
-        style={{
-          scaleX,
-          background: "linear-gradient(90deg, hsl(var(--glow-cyan)), hsl(var(--glow-blue)), hsl(var(--glow-purple)))",
-          boxShadow: "0 0 15px -3px hsl(187 100% 50% / 0.6), 0 0 30px -5px hsl(217 91% 60% / 0.3)",
-        }}
+        className="h-full origin-left rounded-r-full bg-gradient-to-r from-primary via-sky-400 to-cyan-300 shadow-[0_0_18px_rgba(34,211,238,0.55)]"
+        style={{ scaleX }}
       />
-      {/* Glow effect under progress bar - enhanced */}
-      <motion.div
-        className="fixed top-16 left-0 right-0 h-[8px] z-49 origin-left blur-md"
-        style={{
-          scaleX,
-          background: "linear-gradient(90deg, hsl(var(--glow-cyan) / 0.4), hsl(var(--glow-blue) / 0.2))",
-          opacity: 0.6,
-        }}
-      />
-      {/* Additional accent glow */}
-      <motion.div
-        className="fixed top-16 left-0 right-0 h-[1px] z-48 origin-left"
-        style={{
-          scaleX,
-          background: "hsl(var(--glow-cyan))",
-          opacity: 0.3,
-          filter: "blur(1px)",
-        }}
-      />
-    </>
+    </div>
   );
 };
 

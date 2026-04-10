@@ -4,6 +4,7 @@ import GlassCard from "@/components/GlassCard";
 import ScrollReveal from "@/components/ScrollReveal";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import { TrendingUp, Users, Eye, MousePointer } from "lucide-react";
+import type { TooltipProps } from "recharts";
 
 const visitorData = [
   { name: "Mon", visitors: 120 },
@@ -44,7 +45,7 @@ const stats = [
   { icon: TrendingUp, label: "Growth", value: 24, suffix: "%" },
 ];
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>) => {
   if (!active || !payload?.length) return null;
   return (
     <div className="glass-strong rounded-lg px-3 py-2 text-xs border border-border/50">

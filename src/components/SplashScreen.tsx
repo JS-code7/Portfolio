@@ -1,5 +1,5 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -8,6 +8,7 @@ interface SplashScreenProps {
 const SplashScreen = ({ onComplete }: SplashScreenProps) => {
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(true);
+  const lines = ["Initializing mission interface", "Loading story archive", "Syncing interactive modules", "Portfolio online"];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,121 +31,50 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[linear-gradient(180deg,hsl(var(--background)),hsl(222_47%_3%))] px-4"
           exit={{ opacity: 0, scale: 1.05 }}
           transition={{ duration: 0.6 }}
         >
-          {/* Background particles */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {[...Array(20)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-1 h-1 rounded-full bg-primary/30"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                }}
-                animate={{
-                  opacity: [0, 0.5, 0],
-                  scale: [0, 1.5, 0],
-                }}
-                transition={{
-                  duration: 2 + Math.random() * 2,
-                  repeat: Infinity,
-                  delay: Math.random() * 2,
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Monogram */}
-          <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ duration: 0.8, type: "spring", damping: 15 }}
-            className="relative mb-8"
-          >
-            <div className="relative w-28 h-28 flex items-center justify-center">
-              {/* Outer ring */}
-              <motion.div
-                className="absolute inset-0 rounded-full border-2 border-primary/20"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-              />
-              {/* Middle ring */}
-              <motion.div
-                className="absolute inset-2 rounded-full border border-glow-blue/20"
-                animate={{ rotate: -360 }}
-                transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-              />
-              {/* Inner glow */}
-              <motion.div
-                className="absolute inset-4 rounded-full"
-                animate={{
-                  boxShadow: [
-                    "0 0 20px hsl(187 100% 50% / 0.1)",
-                    "0 0 40px hsl(187 100% 50% / 0.3)",
-                    "0 0 20px hsl(187 100% 50% / 0.1)",
-                  ],
-                }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              {/* Initials */}
-              <motion.span
-                className="text-5xl font-display font-bold text-gradient-cyan glow-text"
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              >
-                JS
-              </motion.span>
+          <div className="relative w-full max-w-xl overflow-hidden rounded-[32px] border border-white/8 bg-[hsl(var(--surface-glass)/0.74)] p-6 shadow-[0_24px_80px_-40px_rgba(0,0,0,0.8)] backdrop-blur-2xl md:p-8">
+            <div className="mb-6 flex items-center justify-between gap-4">
+              <div>
+                <p className="text-[10px] font-mono uppercase tracking-[0.32em] text-primary/70">System Booting</p>
+                <h2 className="mt-2 text-2xl font-display font-semibold text-foreground">Mission control online</h2>
+              </div>
+              <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.24em] text-primary/80">
+                {progress}%
+              </span>
             </div>
-          </motion.div>
 
-          {/* Circuit lines */}
-          <motion.div
-            className="flex gap-1 mb-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            {[...Array(7)].map((_, i) => (
+            <div className="space-y-3">
+              {lines.map((line, index) => {
+                const active = progress >= index * 25;
+                return (
+                  <div
+                    key={line}
+                    className={`flex items-center justify-between rounded-2xl border px-4 py-3 ${active ? "border-primary/20 bg-primary/10" : "border-white/8 bg-white/4"}`}
+                  >
+                    <span className="text-sm text-foreground/90">{line}</span>
+                    <span className="text-[10px] font-mono uppercase tracking-[0.24em] text-muted-foreground">
+                      {index === lines.length - 1 ? "Ready" : "Loading"}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-6 h-2 overflow-hidden rounded-full bg-white/8">
               <motion.div
-                key={i}
-                className="h-px bg-gradient-to-r from-primary/60 to-glow-blue/40"
-                style={{ width: `${12 + Math.random() * 20}px` }}
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.4 + i * 0.08, duration: 0.3 }}
+                className="h-full rounded-full bg-gradient-to-r from-primary via-sky-400 to-cyan-300"
+                style={{ width: `${progress}%` }}
+                transition={{ duration: 0.1 }}
               />
-            ))}
-          </motion.div>
+            </div>
 
-          {/* Progress bar */}
-          <div className="w-56 h-1 bg-secondary/50 rounded-full overflow-hidden backdrop-blur-sm">
-            <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-primary via-glow-blue to-glow-purple"
-              style={{ width: `${progress}%` }}
-              transition={{ duration: 0.1 }}
-            />
-          </div>
-
-          <div className="flex items-center gap-3 mt-4">
-            <motion.p
-              className="text-xs font-mono text-muted-foreground"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-            >
-              Initializing systems
-            </motion.p>
-            <motion.span
-              className="text-xs font-mono text-primary"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-            >
-              {progress}%
-            </motion.span>
+            <div className="mt-4 flex items-center justify-between text-xs font-mono uppercase tracking-[0.24em] text-muted-foreground">
+              <span>Warming up interface</span>
+              <span>Secure channel</span>
+            </div>
           </div>
         </motion.div>
       )}

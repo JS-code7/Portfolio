@@ -153,7 +153,9 @@ const ProjectsSection = () => {
                   </div>
                   <div className="rounded-xl border border-white/10 bg-secondary/55 p-3">
                     <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-primary">Approach</p>
-                    <p className="mt-1 text-muted-foreground">Built with {activeProject.tech.join(", ")} and iterative testing cycles.</p>
+                    <p className="mt-1 text-muted-foreground">
+                      {activeProject.approach || `Built with ${activeProject.tech.join(", ")} and iterative testing cycles.`}
+                    </p>
                   </div>
                   <div className="rounded-xl border border-white/10 bg-secondary/55 p-3">
                     <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-primary">Outcome</p>
@@ -161,16 +163,18 @@ const ProjectsSection = () => {
                   </div>
                   <div className="rounded-xl border border-white/10 bg-secondary/55 p-3">
                     <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-primary">Impact</p>
-                    <p className="mt-1 text-muted-foreground">{getHighlight(activeProject, 1)}</p>
+                    <p className="mt-1 text-muted-foreground">{activeProject.impact || getHighlight(activeProject, 1)}</p>
                   </div>
                 </div>
 
                 <div className="mt-4 grid gap-3 text-xs text-muted-foreground md:grid-cols-2">
                   <p>
-                    <span className="font-mono text-primary">What I learned:</span> Clear instrumentation and measurable feedback loops improve every release.
+                    <span className="font-mono text-primary">What I learned:</span>{" "}
+                    {activeProject.learned || "Clear instrumentation and measurable feedback loops improve every release."}
                   </p>
                   <p>
-                    <span className="font-mono text-primary">What I’d improve:</span> Expand observability and stress-test edge cases earlier in the cycle.
+                    <span className="font-mono text-primary">What I’d improve:</span>{" "}
+                    {activeProject.improve || "Expand observability and stress-test edge cases earlier in the cycle."}
                   </p>
                 </div>
 

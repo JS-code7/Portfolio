@@ -16,6 +16,10 @@ export interface Project {
   forks_count?: number;
   updated_at?: string;
   updatedDaysAgo?: number;
+  approach?: string;
+  impact?: string;
+  learned?: string;
+  improve?: string;
 }
 
 export interface BlogPost {
@@ -52,6 +56,10 @@ const projectsData: Project[] = [
     highlights: ["Real-time traffic analysis with 94% accuracy", "AI-powered congestion predictions", "Smart signal control reducing wait times by 35%", "IoT sensor integration for live data streams"],
     status: "published",
     category: "AI",
+    approach: "Combined computer vision with adaptive signal logic and staged simulation runs before field-style testing.",
+    impact: "Reduced modeled wait-time bottlenecks by roughly one-third in dense traffic scenarios.",
+    learned: "Operational dashboards are critical for validating AI decisions under changing road conditions.",
+    improve: "Increase edge-case detection for weather and night-time visibility shifts.",
   },
   {
     id: "2",
@@ -62,6 +70,10 @@ const projectsData: Project[] = [
     highlights: ["Custom physics engine with tuned gravity curves", "Dynamic particle effects on collision & scoring", "Procedural obstacle generation for infinite gameplay", "High score tracking with persistent storage"],
     status: "published",
     category: "Game Dev",
+    approach: "Rebuilt core mechanics in Unreal with iterative playtesting to tune responsiveness and game feel.",
+    impact: "Improved gameplay smoothness and replayability through procedural balancing and feedback polish.",
+    learned: "Small latency and motion tweaks have outsized impact on perceived quality in game loops.",
+    improve: "Expand level-variation logic and telemetry for deeper balancing insights.",
   },
   {
     id: "3",
@@ -72,6 +84,10 @@ const projectsData: Project[] = [
     highlights: ["Pattern recognition catching 89% of known scam types", "Real-time alerts via SMS and push notifications", "Anomaly detection using isolation forests", "Dashboard for transaction monitoring"],
     status: "published",
     category: "Security",
+    approach: "Used anomaly detection and known scam-pattern modeling with a real-time alerting pipeline.",
+    impact: "Raised early fraud detection confidence while reducing manual transaction review effort.",
+    learned: "Security tooling must balance sensitivity and false positives to stay trusted by users.",
+    improve: "Broaden model training with fresher scam signatures and behavior drift handling.",
   },
   {
     id: "4",
@@ -82,6 +98,10 @@ const projectsData: Project[] = [
     highlights: ["PID control algorithm with auto-tuning", "Handles 90° turns at full speed", "Sensor calibration for multiple surface types", "Completed obstacle courses in under 45 seconds"],
     status: "published",
     category: "Robotics",
+    approach: "Built sensor-calibration routines and PID tuning passes for stability across variable tracks.",
+    impact: "Achieved consistent path-tracking even on tighter turns and mixed surface conditions.",
+    learned: "Reliable robotics outcomes depend on disciplined calibration more than raw speed tuning.",
+    improve: "Add telemetry capture for autonomous self-correction and faster retuning cycles.",
   },
   {
     id: "5",
@@ -92,6 +112,10 @@ const projectsData: Project[] = [
     highlights: ["360° obstacle detection with servo-mounted sensor", "A* inspired path planning algorithm", "Real-time sensor fusion from 3 ultrasonic inputs", "Navigates complex mazes autonomously"],
     status: "published",
     category: "Robotics",
+    approach: "Implemented obstacle sensing, route scoring, and live movement adaptation in constrained spaces.",
+    impact: "Increased autonomous navigation reliability in maze-like environments with fewer collisions.",
+    learned: "Sensor fusion improves confidence only when timing and signal filtering are tightly controlled.",
+    improve: "Integrate additional sensing layers for better depth interpretation in narrow paths.",
   },
 ];
 

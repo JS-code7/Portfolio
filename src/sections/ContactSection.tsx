@@ -56,7 +56,7 @@ const ContactSection = () => {
           <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
             <SocialLinks className="flex flex-wrap gap-3" />
             <p className="font-mono text-xs text-muted-foreground">
-              Direct channel: <a href="mailto:sonijeet660@gmail.com" className="text-primary hover:text-primary/80">sonijeet660@gmail.com</a>
+              Direct channel: <a href="mailto:SONIJEET660@GMAIL.COM" className="text-primary hover:text-primary/80">SONIJEET660@GMAIL.COM</a>
             </p>
           </div>
 

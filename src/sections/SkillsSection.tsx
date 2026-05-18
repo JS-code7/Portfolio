@@ -92,7 +92,7 @@ const SkillsSection = () => (
                           </motion.button>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p className="max-w-xs text-xs">{skill} • Used in current portfolio experience/projects.</p>
+                          <p className="max-w-xs text-xs">{skill} • {group.group}: {group.summary}</p>
                         </TooltipContent>
                       </Tooltip>
                     ))}

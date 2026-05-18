@@ -2,6 +2,7 @@ export const linkedinProfile = {
   name: "Jeet Soni",
   headline: "Cybersecurity Engineer • Robotics Developer • AI Enthusiast",
   location: "Ahmedabad, Gujarat, India",
+  email: "SONIJEET660@GMAIL.COM",
   linkedinUrl: "https://www.linkedin.com/in/jeet-soni-01bb09337/",
   about:
     "Computer Engineering student building practical systems across cybersecurity, AI, and robotics. I focus on real-world outcomes, explainable implementation, and collaborative execution from idea to impact.",

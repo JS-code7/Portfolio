@@ -47,7 +47,7 @@ const ContactSection = () => {
 
   const handleCopyEmail = async () => {
     try {
-      await navigator.clipboard.writeText("SONIJEET660@GMAIL.COM");
+      await navigator.clipboard.writeText(linkedinProfile.email);
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
@@ -94,7 +94,7 @@ const ContactSection = () => {
                 <SocialLinks className="mt-6 flex flex-wrap justify-start gap-3" />
                 <div className="mt-4 flex flex-wrap items-center gap-2 text-xs font-mono text-muted-foreground">
                   <span>
-                    Direct email: <a href="mailto:SONIJEET660@GMAIL.COM" className="text-primary">SONIJEET660@GMAIL.COM</a>
+                    Direct email: <a href={`mailto:${linkedinProfile.email}`} className="text-primary">{linkedinProfile.email}</a>
                   </span>
                   <Button type="button" variant="outline" size="sm" className="h-7 rounded-full border-primary/25 px-3 text-[10px]" onClick={handleCopyEmail}>
                     <Copy size={12} className="mr-1.5" /> {copied ? "Copied" : "Copy"}
@@ -203,7 +203,7 @@ const ContactSection = () => {
                     </Button>
                   </MagneticButton>
                   <Button asChild variant="outline" className="rounded-full border-primary/25 bg-transparent text-foreground hover:bg-primary/10">
-                    <a href="mailto:SONIJEET660@GMAIL.COM?subject=Portfolio%20Inquiry">Open email client</a>
+                    <a href={`mailto:${linkedinProfile.email}?subject=Portfolio%20Inquiry`}>Open email client</a>
                   </Button>
                   <Button asChild variant="outline" className="rounded-full border-primary/25 bg-transparent text-foreground hover:bg-primary/10">
                     <a href={linkedinProfile.linkedinUrl} target="_blank" rel="noopener noreferrer">Open LinkedIn</a>

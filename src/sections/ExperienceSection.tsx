@@ -49,8 +49,8 @@ const ExperienceSection = () => (
                       {item.highlights[0]}
                     </p>
                     <div className="flex flex-wrap gap-1.5 mt-4">
-                      {item.highlights.slice(1).map((s) => (
-                        <span key={s} className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-secondary text-muted-foreground">
+                      {item.highlights.slice(1).map((s, idx) => (
+                        <span key={`${s}-${idx}`} className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-secondary text-muted-foreground">
                           {s}
                         </span>
                       ))}

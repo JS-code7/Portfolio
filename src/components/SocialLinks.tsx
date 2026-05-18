@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { Mail, Linkedin, Github } from "lucide-react";
+import { linkedinProfile } from "@/data/linkedinProfile";
 
 const socialLinks = [
-  { href: "mailto:SONIJEET660@GMAIL.COM", icon: Mail, label: "Email" },
-  { href: "https://www.linkedin.com/in/jeet-soni-01bb09337/", icon: Linkedin, label: "LinkedIn" },
+  { href: `mailto:${linkedinProfile.email}`, icon: Mail, label: "Email" },
+  { href: linkedinProfile.linkedinUrl, icon: Linkedin, label: "LinkedIn" },
   { href: "https://github.com/JS-code7", icon: Github, label: "GitHub" },
 ];
 

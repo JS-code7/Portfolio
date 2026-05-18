@@ -2,13 +2,17 @@ import { useMemo, useState } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const navItems = [
   { label: "Boot", href: "/#boot" },
+  { label: "About", href: "/#about" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Education", href: "/#education" },
+  { label: "Certs", href: "/#certifications" },
+  { label: "Skills", href: "/#skills" },
+  { label: "Projects", href: "/#projects" },
   { label: "Story", href: "/#story" },
-  { label: "Lab", href: "/#lab" },
-  { label: "Brain Map", href: "/#brain-map" },
-  { label: "Timeline", href: "/#timeline" },
   { label: "Contact", href: "/#contact" },
   { label: "Archive", href: "/projects", archive: true },
 ];
@@ -67,6 +71,7 @@ const Navbar = () => {
                 )}
               </Link>
             ))}
+            <ThemeToggle />
           </div>
         </LayoutGroup>
 
@@ -118,6 +123,9 @@ const Navbar = () => {
                   </Link>
                 </motion.div>
               ))}
+              <div className="px-1 pt-1">
+                <ThemeToggle />
+              </div>
             </div>
           </motion.div>
         )}

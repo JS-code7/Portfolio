@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { CheckCircle, Loader2, Send, Shield, Sparkles } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { CheckCircle, Copy, Loader2, Send, Shield, Sparkles, XCircle } from "lucide-react";
 import SectionHeader from "@/components/SectionHeader";
 import GlassPanel from "@/components/GlassPanel";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -10,24 +10,23 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/lib/api";
 import SocialLinks from "@/components/SocialLinks";
+import { linkedinProfile } from "@/data/linkedinProfile";
+import { validateContactForm } from "@/lib/contact";
 
 const ContactSection = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
-      setError("Please complete all fields.");
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(form.email.trim())) {
-      setError("Please enter a valid email address.");
+    const validation = validateContactForm(form);
+    if (validation) {
+      setError(validation);
+      setSuccess(false);
       return;
     }
 
@@ -43,6 +42,16 @@ const ContactSection = () => {
       setError(submitError instanceof Error ? submitError.message : "Transmission failed. Try again.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText("SONIJEET660@GMAIL.COM");
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      setError("Clipboard access is blocked. Please copy the email manually.");
     }
   };
 
@@ -83,9 +92,14 @@ const ContactSection = () => {
 
               <ScrollReveal>
                 <SocialLinks className="mt-6 flex flex-wrap justify-start gap-3" />
-                <p className="mt-4 text-xs font-mono text-muted-foreground">
-                  Direct email: <a href="mailto:SONIJEET660@GMAIL.COM" className="text-primary">SONIJEET660@GMAIL.COM</a>
-                </p>
+                <div className="mt-4 flex flex-wrap items-center gap-2 text-xs font-mono text-muted-foreground">
+                  <span>
+                    Direct email: <a href="mailto:SONIJEET660@GMAIL.COM" className="text-primary">SONIJEET660@GMAIL.COM</a>
+                  </span>
+                  <Button type="button" variant="outline" size="sm" className="h-7 rounded-full border-primary/25 px-3 text-[10px]" onClick={handleCopyEmail}>
+                    <Copy size={12} className="mr-1.5" /> {copied ? "Copied" : "Copy"}
+                  </Button>
+                </div>
               </ScrollReveal>
             </GlassPanel>
           </ScrollReveal>
@@ -140,7 +154,30 @@ const ContactSection = () => {
                   />
                 </motion.div>
 
-                {error && <p className="text-xs text-destructive">{error}</p>}
+                <AnimatePresence mode="wait">
+                  {error && (
+                    <motion.p
+                      key={error}
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      className="flex items-center gap-2 text-xs text-destructive"
+                    >
+                      <XCircle size={12} /> {error}
+                    </motion.p>
+                  )}
+                  {success && !error && (
+                    <motion.p
+                      key="success"
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      className="flex items-center gap-2 text-xs text-primary"
+                    >
+                      <CheckCircle size={12} /> Message sent successfully.
+                    </motion.p>
+                  )}
+                </AnimatePresence>
 
                 <div className="flex flex-wrap gap-3">
                   <MagneticButton className="w-full sm:w-auto">
@@ -167,6 +204,9 @@ const ContactSection = () => {
                   </MagneticButton>
                   <Button asChild variant="outline" className="rounded-full border-primary/25 bg-transparent text-foreground hover:bg-primary/10">
                     <a href="mailto:SONIJEET660@GMAIL.COM?subject=Portfolio%20Inquiry">Open email client</a>
+                  </Button>
+                  <Button asChild variant="outline" className="rounded-full border-primary/25 bg-transparent text-foreground hover:bg-primary/10">
+                    <a href={linkedinProfile.linkedinUrl} target="_blank" rel="noopener noreferrer">Open LinkedIn</a>
                   </Button>
                 </div>
 

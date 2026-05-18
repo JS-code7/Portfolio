@@ -52,6 +52,30 @@
     --sidebar-border: 222 30% 15%;
     --sidebar-ring: 187 100% 50%;
   }
+
+  .light {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 10%;
+    --primary: 195 95% 38%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 95%;
+    --secondary-foreground: 222 47% 12%;
+    --muted: 210 30% 94%;
+    --muted-foreground: 215 16% 36%;
+    --accent: 195 95% 38%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 78% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 24% 86%;
+    --input: 210 24% 86%;
+    --ring: 195 95% 38%;
+    --surface-glass: 0 0% 100%;
+    --surface-glass-border: 210 24% 84%;
+  }
 }
 
 @layer base {
@@ -65,7 +89,8 @@
     background:
       radial-gradient(circle at top, hsl(var(--glow-cyan) / 0.1), transparent 30%),
       radial-gradient(circle at 85% 12%, hsl(var(--glow-purple) / 0.08), transparent 24%),
-      linear-gradient(180deg, hsl(var(--background)) 0%, hsl(222 47% 3%) 100%);
+      linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--background)) 100%);
+    transition: background-color 0.35s ease, color 0.35s ease;
   }
 
   h1, h2, h3, h4, h5, h6 {

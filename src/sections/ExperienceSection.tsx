@@ -1,16 +1,9 @@
 import { motion } from "framer-motion";
 import SectionHeading from "@/components/SectionHeading";
 import ScrollReveal from "@/components/ScrollReveal";
+import { linkedinProfile } from "@/data/linkedinProfile";
 
-const timeline = [
-  {
-    role: "Associate Professional Service Director",
-    org: "Rotaract Club of New L.J.I.E.T",
-    period: "July 2025 – Present",
-    desc: "Leading professional service initiatives, organizing community events, and driving impactful projects that bridge technology and social responsibility.",
-    skills: ["Leadership", "Community Service", "Event Management"],
-  },
-];
+const timeline = linkedinProfile.experience;
 
 const ExperienceSection = () => (
   <section id="experience" className="relative py-20 md:py-32 px-4">
@@ -48,19 +41,19 @@ const ExperienceSection = () => (
 
                 <div className="glass glow-border rounded-xl p-6 hover:bg-primary/5 transition-colors duration-300">
                   <span className="text-xs font-mono text-primary/70 bg-primary/5 px-2 py-0.5 rounded-full">{item.period}</span>
-                  <h3 className="font-display font-semibold text-foreground text-lg mt-2">
-                    {item.role}
-                  </h3>
-                  <p className="text-sm text-primary/60 mt-0.5">{item.org}</p>
-                  <p className="text-xs text-muted-foreground mt-3 leading-relaxed">
-                    {item.desc}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5 mt-4">
-                    {item.skills.map((s) => (
-                      <span key={s} className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-secondary text-muted-foreground">
-                        {s}
-                      </span>
-                    ))}
+                    <h3 className="font-display font-semibold text-foreground text-lg mt-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-primary/60 mt-0.5">{item.company}</p>
+                    <p className="text-xs text-muted-foreground mt-3 leading-relaxed">
+                      {item.highlights[0]}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5 mt-4">
+                      {item.highlights.slice(1).map((s) => (
+                        <span key={s} className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-secondary text-muted-foreground">
+                          {s}
+                        </span>
+                      ))}
                   </div>
                 </div>
               </div>

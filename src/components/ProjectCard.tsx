@@ -90,6 +90,13 @@ const ProjectCard = ({ project, onInspect }: ProjectCardProps) => {
               </a>
             </Button>
           )}
+          {project.linkedin_url && (
+            <Button asChild variant="ghost" size="sm" className="text-muted-foreground hover:bg-white/5 hover:text-primary">
+              <a href={project.linkedin_url} target="_blank" rel="noopener noreferrer">
+                LinkedIn
+              </a>
+            </Button>
+          )}
         </div>
       </motion.article>
     </GlassPanel>

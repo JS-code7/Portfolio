@@ -190,6 +190,13 @@ const ProjectsSection = () => {
                     </a>
                   </Button>
                 )}
+                {selectedProject.linkedin_url && (
+                  <Button asChild variant="outline" size="sm" className="border-primary/25 text-foreground hover:bg-primary/10 gap-2">
+                    <a href={selectedProject.linkedin_url} target="_blank" rel="noopener noreferrer">
+                      View on LinkedIn
+                    </a>
+                  </Button>
+                )}
               </div>
             </motion.div>
           </motion.div>

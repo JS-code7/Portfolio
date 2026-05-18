@@ -51,7 +51,7 @@ const ContactSection = () => {
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
-      setError("Clipboard access is blocked. Please copy the email manually.");
+      setError("Unable to copy email. Please select and copy manually.");
     }
   };
 

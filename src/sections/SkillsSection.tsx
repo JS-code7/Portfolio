@@ -29,6 +29,15 @@ const capabilityNotes = [
   "Practical AI and data-driven decisions",
 ];
 
+const skillHints: Record<string, string> = {
+  Cybersecurity: "Applied in scam detection and secure system architecture work.",
+  "Machine Learning": "Used for predictive analysis and pattern detection flows.",
+  TensorFlow: "Primary framework for model prototyping and iteration.",
+  OpenCV: "Used for computer-vision pipelines in traffic and robotics projects.",
+  Arduino: "Used in embedded projects with sensors and control loops.",
+  React: "Used to ship responsive, recruiter-facing interfaces.",
+};
+
 const SkillsSection = () => (
   <section id="skills" className="relative px-4 py-24 md:py-32">
     <div className="container mx-auto max-w-6xl">
@@ -92,7 +101,7 @@ const SkillsSection = () => (
                           </motion.button>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p className="max-w-xs text-xs">{skill} • {group.group}: {group.summary}</p>
+                          <p className="max-w-xs text-xs">{skillHints[skill] ?? "Used across projects and learning tracks in the current portfolio."}</p>
                         </TooltipContent>
                       </Tooltip>
                     ))}

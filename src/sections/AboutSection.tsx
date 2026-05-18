@@ -6,6 +6,7 @@ import AnimatedCounter from "@/components/AnimatedCounter";
 import StaggerContainer, { staggerItemVariants } from "@/components/StaggerContainer";
 import { motion } from "framer-motion";
 import { Shield, Cpu, Globe, Zap, Brain, Code2 } from "lucide-react";
+import { linkedinProfile } from "@/data/linkedinProfile";
 
 const focusAreas = [
   { icon: Shield, label: "Cybersecurity", color: "from-red-500/20 to-red-600/5" },
@@ -17,9 +18,9 @@ const focusAreas = [
 
 const stats = [
   { value: 5, suffix: "+", label: "Projects" },
-  { value: 5, suffix: "", label: "Certifications" },
-  { value: 3, suffix: "+", label: "Domains" },
-  { value: 1, suffix: "+", label: "Year Exp" },
+  { value: linkedinProfile.certifications.length, suffix: "", label: "Certifications" },
+  { value: linkedinProfile.skillGroups.length, suffix: "", label: "Skill Tracks" },
+  { value: linkedinProfile.experience.length, suffix: "", label: "Experience Roles" },
 ];
 
 const AboutSection = () => (
@@ -45,7 +46,7 @@ const AboutSection = () => (
         <GlassCard className="p-6 md:p-10">
           <div className="text-muted-foreground leading-relaxed text-sm md:text-base mb-8">
             <TextReveal
-              text="Currently pursuing a Bachelor of Technology in Computer Engineering at Gujarat Technological University. I'm driven by curiosity and passionate about exploring the intersection of cybersecurity, artificial intelligence, robotics, and automation systems."
+              text={linkedinProfile.about}
             />
           </div>
 

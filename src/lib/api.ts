@@ -11,6 +11,7 @@ export interface Project {
   category: string;
   image?: string;
   html_url?: string;
+  linkedin_url?: string;
   language?: string | null;
   stargazers_count?: number;
   forks_count?: number;
@@ -56,6 +57,7 @@ const projectsData: Project[] = [
     highlights: ["Real-time traffic analysis with 94% accuracy", "AI-powered congestion predictions", "Smart signal control reducing wait times by 35%", "IoT sensor integration for live data streams"],
     status: "published",
     category: "AI",
+    linkedin_url: "https://www.linkedin.com/in/jeet-soni-01bb09337/",
     approach: "Combined computer vision with adaptive signal logic and staged simulation runs before field-style testing.",
     impact: "Reduced modeled wait-time bottlenecks by roughly one-third in dense traffic scenarios.",
     learned: "Operational dashboards are critical for validating AI decisions under changing road conditions.",
@@ -70,6 +72,7 @@ const projectsData: Project[] = [
     highlights: ["Custom physics engine with tuned gravity curves", "Dynamic particle effects on collision & scoring", "Procedural obstacle generation for infinite gameplay", "High score tracking with persistent storage"],
     status: "published",
     category: "Game Dev",
+    linkedin_url: "https://www.linkedin.com/in/jeet-soni-01bb09337/",
     approach: "Rebuilt core mechanics in Unreal with iterative playtesting to tune responsiveness and game feel.",
     impact: "Improved gameplay smoothness and replayability through procedural balancing and feedback polish.",
     learned: "Small latency and motion tweaks have outsized impact on perceived quality in game loops.",
@@ -84,6 +87,7 @@ const projectsData: Project[] = [
     highlights: ["Pattern recognition catching 89% of known scam types", "Real-time alerts via SMS and push notifications", "Anomaly detection using isolation forests", "Dashboard for transaction monitoring"],
     status: "published",
     category: "Security",
+    linkedin_url: "https://www.linkedin.com/in/jeet-soni-01bb09337/",
     approach: "Used anomaly detection and known scam-pattern modeling with a real-time alerting pipeline.",
     impact: "Raised early fraud detection confidence while reducing manual transaction review effort.",
     learned: "Security tooling must balance sensitivity and false positives to stay trusted by users.",
@@ -98,6 +102,7 @@ const projectsData: Project[] = [
     highlights: ["PID control algorithm with auto-tuning", "Handles 90° turns at full speed", "Sensor calibration for multiple surface types", "Completed obstacle courses in under 45 seconds"],
     status: "published",
     category: "Robotics",
+    linkedin_url: "https://www.linkedin.com/in/jeet-soni-01bb09337/",
     approach: "Built sensor-calibration routines and PID tuning passes for stability across variable tracks.",
     impact: "Achieved consistent path-tracking even on tighter turns and mixed surface conditions.",
     learned: "Reliable robotics outcomes depend on disciplined calibration more than raw speed tuning.",
@@ -112,6 +117,7 @@ const projectsData: Project[] = [
     highlights: ["360° obstacle detection with servo-mounted sensor", "A* inspired path planning algorithm", "Real-time sensor fusion from 3 ultrasonic inputs", "Navigates complex mazes autonomously"],
     status: "published",
     category: "Robotics",
+    linkedin_url: "https://www.linkedin.com/in/jeet-soni-01bb09337/",
     approach: "Implemented obstacle sensing, route scoring, and live movement adaptation in constrained spaces.",
     impact: "Increased autonomous navigation reliability in maze-like environments with fewer collisions.",
     learned: "Sensor fusion improves confidence only when timing and signal filtering are tightly controlled.",

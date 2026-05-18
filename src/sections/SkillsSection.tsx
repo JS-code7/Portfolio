@@ -5,14 +5,21 @@ import GlassPanel from "@/components/GlassPanel";
 import ScrollReveal from "@/components/ScrollReveal";
 import StaggerContainer, { staggerItemVariants } from "@/components/StaggerContainer";
 import { buildSkillCategories } from "@/lib/intelligence";
+import { linkedinProfile } from "@/data/linkedinProfile";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const skills = [
-  { icon: Cloud, label: "Microsoft Azure", desc: "Cloud infrastructure & services", level: 75 },
-  { icon: Cpu, label: "Arduino IDE", desc: "Embedded systems & IoT", level: 85 },
-  { icon: BarChart3, label: "Data Monitoring", desc: "Real-time analytics & dashboards", level: 70 },
-  { icon: Shield, label: "Cybersecurity", desc: "Offensive & defensive security", level: 80 },
-  { icon: Globe, label: "Web Development", desc: "Full-stack web applications", level: 90 },
-  { icon: Brain, label: "AI Fundamentals", desc: "Machine learning & neural networks", level: 65 },
+  { icon: Shield, label: "Security Engineering", desc: "Defensive and offensive security workflows", level: 84 },
+  { icon: Brain, label: "AI & Data Systems", desc: "Applied ML, CV, and analytics", level: 82 },
+  { icon: Cpu, label: "Robotics & Embedded", desc: "Sensor and control-driven robotics", level: 86 },
+  { icon: Globe, label: "Software & Cloud", desc: "Web delivery and cloud tooling", level: 88 },
+  { icon: Cloud, label: "Cloud Platforms", desc: "Azure and OCI fundamentals", level: 76 },
+  { icon: BarChart3, label: "Execution Quality", desc: "Planning, iteration, and measurable outcomes", level: 85 },
 ];
 
 const capabilityNotes = [
@@ -22,13 +29,22 @@ const capabilityNotes = [
   "Practical AI and data-driven decisions",
 ];
 
+const skillHints: Record<string, string> = {
+  Cybersecurity: "Applied in scam detection and secure system architecture work.",
+  "Machine Learning": "Used for predictive analysis and pattern detection flows.",
+  TensorFlow: "Primary framework for model prototyping and iteration.",
+  OpenCV: "Used for computer-vision pipelines in traffic and robotics projects.",
+  Arduino: "Used in embedded projects with sensors and control loops.",
+  React: "Used to ship responsive, recruiter-facing interfaces.",
+};
+
 const SkillsSection = () => (
   <section id="skills" className="relative px-4 py-24 md:py-32">
     <div className="container mx-auto max-w-6xl">
       <SectionHeader
         eyebrow="System Capabilities"
-        title="Capabilities that support the rest of the portfolio"
-        subtitle="This section acts like a compact command deck: it explains what I can do, how it connects, and where I tend to apply it."
+        title="Skills mapped from live career tracks"
+        subtitle="Grouped skill lanes are synced with current experience and certifications, with hover-level details for recruiter-friendly scanning."
       />
 
       <ScrollReveal className="mb-8">
@@ -55,6 +71,46 @@ const SkillsSection = () => (
               </span>
             ))}
         </div>
+      </ScrollReveal>
+
+      <ScrollReveal className="mb-8">
+        <TooltipProvider delayDuration={120}>
+          <div className="grid gap-4 lg:grid-cols-2">
+            {linkedinProfile.skillGroups.map((group, groupIndex) => (
+              <motion.div
+                key={group.group}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: groupIndex * 0.06 }}
+              >
+                <GlassPanel className="p-5">
+                  <h3 className="text-sm font-display font-semibold text-foreground">{group.group}</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{group.summary}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {group.skills.map((skill) => (
+                      <Tooltip key={skill}>
+                        <TooltipTrigger asChild>
+                          <motion.button
+                            type="button"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-primary/90"
+                          >
+                            {skill}
+                          </motion.button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="max-w-xs text-xs">{skillHints[skill] ?? `${skill} supports the ${group.group} track in current work.`}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    ))}
+                  </div>
+                </GlassPanel>
+              </motion.div>
+            ))}
+          </div>
+        </TooltipProvider>
       </ScrollReveal>
 
       <StaggerContainer className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">

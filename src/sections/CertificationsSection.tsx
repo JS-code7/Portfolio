@@ -6,7 +6,14 @@ import { Award, Shield, Cloud, Brain, Lock } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 import { linkedinProfile } from "@/data/linkedinProfile";
 
-const certIcons: LucideIcon[] = [Cloud, Brain, Award, Shield, Lock];
+const pickCertIcon = (name: string): LucideIcon => {
+  const lower = name.toLowerCase();
+  if (lower.includes("cloud") || lower.includes("oci")) return Cloud;
+  if (lower.includes("ai")) return Brain;
+  if (lower.includes("offensive")) return Lock;
+  if (lower.includes("defensive") || lower.includes("security")) return Shield;
+  return Award;
+};
 
 const CertificationsSection = () => (
   <section id="certifications" className="relative py-20 md:py-32 px-4">
@@ -14,8 +21,8 @@ const CertificationsSection = () => (
       <SectionHeading title="Certifications" subtitle="Professional credentials" />
 
       <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" staggerDelay={0.08}>
-        {linkedinProfile.certifications.map((cert, index) => {
-          const Icon = certIcons[index % certIcons.length];
+        {linkedinProfile.certifications.map((cert) => {
+          const Icon = pickCertIcon(cert.name);
           return (
           <motion.div key={cert.name} variants={staggerItemVariants}>
             <GlassCard delay={0} className="p-5 group cursor-default hover:bg-primary/5 transition-colors duration-300">

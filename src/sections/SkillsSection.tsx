@@ -101,7 +101,7 @@ const SkillsSection = () => (
                           </motion.button>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p className="max-w-xs text-xs">{skillHints[skill] ?? "Used across projects and learning tracks in the current portfolio."}</p>
+                          <p className="max-w-xs text-xs">{skillHints[skill] ?? `${skill} supports the ${group.group} track in current work.`}</p>
                         </TooltipContent>
                       </Tooltip>
                     ))}
